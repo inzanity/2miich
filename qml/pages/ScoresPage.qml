@@ -159,6 +159,7 @@ Page {
         delegate: BackgroundItem {
             id: bgItem
             property variant txtColor: highlighted ? Theme.highlightColor : Theme.primaryColor
+
             Column {
                 anchors.fill: parent
                 anchors.leftMargin: Theme.paddingMedium
