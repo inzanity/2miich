@@ -109,6 +109,7 @@ Page {
 
         onDateChanged: {
             cache = {};
+            model.clear();
             refresh();
         }
 
