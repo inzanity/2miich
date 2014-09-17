@@ -28,6 +28,7 @@ ListModel {
     property variant prev: _object ? new Date(_object.dates.prev.isoformat) : undefined
 
     onSourceChanged: {
+        clear();
         status = 0
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function() {
@@ -43,8 +44,6 @@ ListModel {
         status = 2
         try {
             _object = JSON.parse(json);
-
-            clear();
 
             for (var i = 0; i < _object.games.length; i++) {
 
