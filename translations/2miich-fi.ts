@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>2miich</name>
     <message>
@@ -53,27 +53,27 @@
 <context>
     <name>MenuPage</name>
     <message>
-        <location filename="../qml/pages/MenuPage.qml" line="14"/>
-        <source>2miich menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MenuPage.qml" line="22"/>
-        <source>Statistics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qml/pages/MenuPage.qml" line="32"/>
+        <source>Menu</source>
+        <translation>Valikko</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MenuPage.qml" line="40"/>
+        <source>Statistics</source>
+        <translation>Tilastot</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MenuPage.qml" line="50"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelma</translation>
     </message>
 </context>
 <context>
     <name>SchedulePage</name>
     <message>
-        <location filename="../qml/pages/SchedulePage.qml" line="27"/>
+        <location filename="../qml/pages/SchedulePage.qml" line="45"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelma</translation>
     </message>
 </context>
 <context>
@@ -89,30 +89,30 @@
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="95"/>
         <source>No games for the day</source>
-        <translation type="unfinished">Ei otteluita päivälle</translation>
+        <translation>Ei otteluita päivälle</translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="100"/>
         <source>Go to today</source>
-        <translation type="unfinished">Näytä tämä päivä</translation>
+        <translation>Näytä tämä päivä</translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="104"/>
         <source>Previous: </source>
-        <translation type="unfinished">Edeltävät: </translation>
+        <translation>Edeltävät: </translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="111"/>
         <source>Next: </source>
-        <translation type="unfinished">Seuraavat: </translation>
+        <translation>Seuraavat: </translation>
     </message>
 </context>
 <context>
     <name>StatisticsPage</name>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="24"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="42"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilastot</translation>
     </message>
 </context>
 </TS>
