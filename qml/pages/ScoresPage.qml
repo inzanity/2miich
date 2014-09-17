@@ -54,8 +54,8 @@ Page {
                                 running = true;
 
                             if (i === detailsIndex) {
-                                PageStack.nextPage(page).details = r;
-                                PageStack.nextPage(page).refresh();
+                                pageStack.nextPage(page).details = r;
+                                pageStack.nextPage(page).refresh();
                             }
                         }
                     }
