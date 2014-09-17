@@ -91,13 +91,6 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr('Show date')
-                onClicked: {
-                    var d = pageStack.push(dPick, {'date': games.date});
-                    d.accepted.connect(function () { games.date = d.date });
-                }
-            }
-            MenuItem {
                 text: qsTr('Go to today')
                 onClicked: games.date = new Date()
             }
@@ -112,11 +105,6 @@ Page {
                 text: qsTr('Next: ') + Qt.formatDate(games.model.next, 'ddd, ') + Qt.formatDate(games.model.next)
                 onClicked: games.date = games.model.next
             }
-        }
-
-        Component {
-            id: dPick
-            DatePickerDialog {}
         }
 
         onDateChanged: {

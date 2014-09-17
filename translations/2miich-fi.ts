@@ -67,21 +67,16 @@
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="94"/>
-        <source>Show date</source>
-        <translation>Näytä päivä</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="101"/>
         <source>Go to today</source>
         <translation>Näytä tämä päivä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="105"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="98"/>
         <source>Previous: </source>
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="112"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="105"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>
