@@ -24,8 +24,14 @@ import '..'
 Page {
     id: page
     property int detailsIndex: -1
+    property alias date: games.date
 
-    onStatusChanged: if (status === PageStatus.Active) detailsIndex = -1;
+    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(menu, { mainPage: page }); }
+
+    Component {
+        id: menu
+        MenuPage {}
+    }
 
     SilicaListView {
         id: games

@@ -30,7 +30,11 @@ OTHER_FILES += \
     qml/cover/DummyCover.qml \
     qml/cover/ScoresCover.qml \
     qml/GameModel.qml \
-    qml/MonochromeEffect.qml
+    qml/MonochromeEffect.qml \
+    qml/pages/MenuPage.qml \
+    qml/pages/StatisticsPage.qml \
+    qml/pages/SchedulePage.qml \
+    qml/ScheduleModel.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
