@@ -31,7 +31,6 @@ OTHER_FILES += \
     qml/cover/ScoresCover.qml \
     qml/GameModel.qml \
     qml/MonochromeEffect.qml \
-    qml/pages/MenuPage.qml \
     qml/pages/StatisticsPage.qml \
     qml/pages/SchedulePage.qml \
     qml/ScheduleModel.qml

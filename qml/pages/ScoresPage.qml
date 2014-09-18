@@ -26,11 +26,11 @@ Page {
     property int detailsIndex: -1
     property alias date: games.date
 
-    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(menu, { mainPage: page }); }
+    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(schedule, { mainPage: page }); }
 
     Component {
-        id: menu
-        MenuPage {}
+        id: schedule
+        SchedulePage {}
     }
 
     SilicaListView {
@@ -96,6 +96,11 @@ Page {
         }
 
         PullDownMenu {
+            MenuItem {
+                text: qsTr('Statistics')
+                onClicked: pageStack.push('StatisticsPage.qml', { mainPage: page })
+            }
+
             MenuItem {
                 text: qsTr('Go to today')
                 onClicked: games.date = new Date()

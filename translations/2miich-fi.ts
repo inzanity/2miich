@@ -51,27 +51,9 @@
     </message>
 </context>
 <context>
-    <name>MenuPage</name>
-    <message>
-        <location filename="../qml/pages/MenuPage.qml" line="32"/>
-        <source>Menu</source>
-        <translation>Valikko</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MenuPage.qml" line="40"/>
-        <source>Statistics</source>
-        <translation>Tilastot</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MenuPage.qml" line="50"/>
-        <source>Schedule</source>
-        <translation>Ohjelma</translation>
-    </message>
-</context>
-<context>
     <name>SchedulePage</name>
     <message>
-        <location filename="../qml/pages/SchedulePage.qml" line="45"/>
+        <location filename="../qml/pages/SchedulePage.qml" line="56"/>
         <source>Schedule</source>
         <translation>Ohjelma</translation>
     </message>
@@ -93,16 +75,21 @@
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="100"/>
+        <source>Statistics</source>
+        <translation>Tilastot</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ScoresPage.qml" line="105"/>
         <source>Go to today</source>
         <translation>Näytä tämä päivä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="104"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="109"/>
         <source>Previous: </source>
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="111"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="116"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>
