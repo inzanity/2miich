@@ -15,11 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <QtQml>
 #include <sailfishapp.h>
 
+#include "diskcache.h"
 
 int main(int argc, char *argv[])
 {
+    qmlRegisterType<DiskCache, 1>("DiskCache", 1, 0, "DiskCache");
     return SailfishApp::main(argc, argv);
 }
 

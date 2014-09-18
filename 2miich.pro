@@ -14,7 +14,8 @@ TARGET = 2miich
 
 CONFIG += sailfishapp
 
-SOURCES += src/2miich.cpp
+SOURCES += src/2miich.cpp \
+    src/diskcache.cpp
 
 OTHER_FILES += \
     rpm/2miich.changes.in \
@@ -42,4 +43,7 @@ TRANSLATIONS += translations/2miich-fi.ts
 
 RESOURCES += \
     2miich.qrc
+
+HEADERS += \
+    src/diskcache.h
 
