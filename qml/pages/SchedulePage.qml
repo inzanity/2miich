@@ -19,19 +19,30 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import '..'
+import DiskCache 1.0
 
 Page {
     property variant mainPage
 
+    DiskCache { id: xmlCache }
+
     onStatusChanged: {
         if (status === PageStatus.Active) {
+            var src = "http://liiga.fi/ottelut/";
+            var cached = xmlCache.getFile(src);
+            var uri = src;
+
+            if (cached) uri = cached;
+
             var xhr = new XMLHttpRequest;
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    if (uri === src)
+                        xmlCache.setFile(src, xhr.responseText);
                     listView.model.xml = '<data>' + xhr.responseText.match(/<table(?:[\r\n]|.)*?<\/table>/)[0].replace(/&mdash;/g, '-') + '</data>';
                 }
             }
-            xhr.open("GET", "http://liiga.fi/ottelut/");
+            xhr.open("GET", uri);
             xhr.send();
         }
     }
