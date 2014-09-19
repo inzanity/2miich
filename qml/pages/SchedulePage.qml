@@ -109,5 +109,6 @@ Page {
 
             onClicked: { var i; for (i = index; !listView.model.get(i).date; i--); mainPage.date = new Date(Date.parse(listView.model.get(i).date.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
         }
+        VerticalScrollDecorator {}
     }
 }
