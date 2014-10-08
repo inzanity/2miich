@@ -23,18 +23,18 @@ OTHER_FILES += \
     rpm/2miich.yaml \
     translations/*.ts \
     2miich.desktop \
-    qml/LiigaModel.qml \
     qml/2miich.qml \
-    qml/Logo.qml \
     qml/pages/ScoresPage.qml \
     qml/pages/DetailsPage.qml \
     qml/cover/DummyCover.qml \
     qml/cover/ScoresCover.qml \
-    qml/GameModel.qml \
-    qml/MonochromeEffect.qml \
     qml/pages/StatisticsPage.qml \
     qml/pages/SchedulePage.qml \
-    qml/ScheduleModel.qml
+    qml/models/GameModel.qml \
+    qml/models/LiigaModel.qml \
+    qml/widgets/Logo.qml \
+    qml/models/ScheduleModel.qml \
+    qml/effects/MonochromeEffect.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

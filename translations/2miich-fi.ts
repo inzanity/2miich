@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fi_FI">
+<TS version="2.0" language="fi_FI">
 <context>
     <name>2miich</name>
     <message>
@@ -12,32 +12,32 @@
 <context>
     <name>DetailsPage</name>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="43"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="45"/>
         <source>%1th</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="45"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="47"/>
         <source>%1st</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="47"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="49"/>
         <source>%1nd</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="49"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="51"/>
         <source>%1rd</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="130"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="132"/>
         <source>%1 period</source>
         <translation>%1 erä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="130"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="132"/>
         <source>Overtime</source>
         <translation>jatkoaika</translation>
     </message>
@@ -53,7 +53,7 @@
 <context>
     <name>SchedulePage</name>
     <message>
-        <location filename="../qml/pages/SchedulePage.qml" line="56"/>
+        <location filename="../qml/pages/SchedulePage.qml" line="58"/>
         <source>Schedule</source>
         <translation>Ohjelma</translation>
     </message>
@@ -69,27 +69,27 @@
 <context>
     <name>ScoresPage</name>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="95"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="97"/>
         <source>No games for the day</source>
         <translation>Ei otteluita päivälle</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="100"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="102"/>
         <source>Statistics</source>
         <translation>Tilastot</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="105"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="107"/>
         <source>Go to today</source>
         <translation>Näytä tämä päivä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="109"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="111"/>
         <source>Previous: </source>
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="116"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="118"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>

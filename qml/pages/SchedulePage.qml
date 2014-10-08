@@ -19,6 +19,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import '..'
+import '../widgets'
+import '../models'
 import DiskCache 1.0
 
 Page {
