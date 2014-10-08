@@ -30,6 +30,7 @@ OTHER_FILES += \
     qml/cover/ScoresCover.qml \
     qml/pages/StatisticsPage.qml \
     qml/pages/SchedulePage.qml \
+    qml/widgets/GoalLabel.qml \
     qml/models/GameModel.qml \
     qml/models/LiigaModel.qml \
     qml/widgets/Logo.qml \

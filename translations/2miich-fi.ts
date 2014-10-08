@@ -12,32 +12,32 @@
 <context>
     <name>DetailsPage</name>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="45"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="46"/>
         <source>%1th</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="47"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="48"/>
         <source>%1st</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="49"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="50"/>
         <source>%1nd</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="51"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="52"/>
         <source>%1rd</source>
         <translation>%1.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="132"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="148"/>
         <source>%1 period</source>
         <translation>%1 erä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="132"/>
+        <location filename="../qml/pages/DetailsPage.qml" line="148"/>
         <source>Overtime</source>
         <translation>jatkoaika</translation>
     </message>

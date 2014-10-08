@@ -21,6 +21,7 @@ import Sailfish.Silica 1.0
 
 import '..'
 import '../effects'
+import '../widgets'
 import '../models'
 
 Page {
@@ -96,11 +97,26 @@ Page {
                 }
 
                 Column {
-                    Label {
-                        text: details.homescore + ' - ' + details.awayscore
-                        height: contentHeight
-                        width: contentWidth
-                        font.pixelSize: Theme.fontSizeHuge
+                    Row {
+                        GoalLabel {
+                            text: details.homescore
+                            height: contentHeight
+                            width: contentWidth
+                            font.pixelSize: Theme.fontSizeHuge
+                        }
+
+                        Label {
+                            text: ' - '
+                            height: contentHeight
+                            width: contentWidth
+                            font.pixelSize: Theme.fontSizeHuge
+                        }
+                        GoalLabel {
+                            text: details.awayscore
+                            height: contentHeight
+                            width: contentWidth
+                            font.pixelSize: Theme.fontSizeHuge
+                        }
                     }
                     Label {
                         horizontalAlignment: Text.AlignHCenter

@@ -187,7 +187,7 @@ Page {
                         font.weight: homescore > awayscore ? Font.Bold : Font.Normal
                         color: bgItem.txtColor
                     }
-                    Label {
+                    GoalLabel {
                         id: homeScore
                         anchors.right: dash.left
                         text: homescore
@@ -201,7 +201,7 @@ Page {
                         text: ' - '
                         color: bgItem.txtColor
                     }
-                    Label {
+                    GoalLabel {
                         id: awayScore
                         anchors.left: dash.right
                         text: awayscore + overtime
