@@ -41,7 +41,9 @@ Page {
                 if (xhr.readyState === 4) {
                     if (uri === src)
                         xmlCache.setFile(src, xhr.responseText);
-                    listView.model.xml = '<data>' + xhr.responseText.match(/<table(?:[\r\n]|.)*?<\/table>/)[0].replace(/&mdash;/g, '-') + '</data>';
+                    var begin = xhr.responseText.indexOf("<table");
+                    var end = xhr.responseText.indexOf('</table>');
+                    listView.model.xml = xhr.responseText.substring(begin, end + 8).replace(/&mdash;/g, '-');
                 }
             }
             xhr.open("GET", uri);

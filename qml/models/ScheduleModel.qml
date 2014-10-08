@@ -20,7 +20,7 @@ import QtQuick 2.0
 import QtQuick.XmlListModel 2.0
 
 XmlListModel {
-    query: '/data//table/tbody/tr'
+    query: '/table/tbody/tr'
 
     XmlRole {
         name: 'date'
