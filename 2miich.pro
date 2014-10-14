@@ -13,9 +13,13 @@
 TARGET = 2miich
 
 CONFIG += sailfishapp
+QT += network
+PKGCONFIG += libiphb
 
 SOURCES += src/2miich.cpp \
-    src/diskcache.cpp
+    src/diskcache.cpp \
+    src/oledify.cpp \
+    src/persistenttimer.cpp
 
 OTHER_FILES += \
     rpm/2miich.changes.in \
@@ -35,7 +39,8 @@ OTHER_FILES += \
     qml/models/LiigaModel.qml \
     qml/widgets/Logo.qml \
     qml/models/ScheduleModel.qml \
-    qml/effects/MonochromeEffect.qml
+    qml/effects/MonochromeEffect.qml \
+    qml/helpers/Toholed.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -46,5 +51,7 @@ RESOURCES += \
     2miich.qrc
 
 HEADERS += \
-    src/diskcache.h
+    src/diskcache.h \
+    src/oledify.h \
+    src/persistenttimer.h
 

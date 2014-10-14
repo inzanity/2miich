@@ -5,5 +5,19 @@
         <file>images/penalty.png</file>
         <file>images/penaltyShot.png</file>
         <file>images/timeout.png</file>
+        <file>images/Assat-1bit.png</file>
+        <file>images/Blues-1bit.png</file>
+        <file>images/HIFK-1bit.png</file>
+        <file>images/HPK-1bit.png</file>
+        <file>images/Ilves-1bit.png</file>
+        <file>images/JYP-1bit.png</file>
+        <file>images/KalPa-1bit.png</file>
+        <file>images/Karpat-1bit.png</file>
+        <file>images/SaiPa-1bit.png</file>
+        <file>images/Pelicans-1bit.png</file>
+        <file>images/Tappara-1bit.png</file>
+        <file>images/TPS-1bit.png</file>
+        <file>images/Sport-1bit.png</file>
+        <file>images/Lukko-1bit.png</file>
     </qresource>
 </RCC>

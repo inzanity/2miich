@@ -19,10 +19,12 @@ PkgConfigBR:
   - Qt5Core
   - Qt5Qml
   - Qt5Quick
+  - libiphb
 
 Requires:
   - sailfishsilica-qt5 >= 0.10.9 
   - qt5-qtdeclarative-import-xmllistmodel
+  - nemo-qml-plugin-dbus-qt5
 
 Files:
   - '%{_bindir}'

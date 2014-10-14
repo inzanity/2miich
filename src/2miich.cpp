@@ -19,10 +19,14 @@
 #include <sailfishapp.h>
 
 #include "diskcache.h"
+#include "oledify.h"
+#include "persistenttimer.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<DiskCache, 1>("DiskCache", 1, 0, "DiskCache");
+    qmlRegisterType<Oledify, 1>("Oledify", 1, 0, "Oledify");
+    qmlRegisterType<PersistentTimer, 1>("PersistentTimer", 1, 0, "PersistentTimer");
     return SailfishApp::main(argc, argv);
 }
 
