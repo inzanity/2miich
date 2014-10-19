@@ -130,6 +130,7 @@ Page {
         property variant cache: new Object
         property bool gamesRunning: false
         property bool gamesPending: false
+        property bool clearModel: false
 
         PersistentTimer {
              interval: games.gamesRunning ? 30000 : 600000
@@ -144,7 +145,7 @@ Page {
         }
 
         header: PageHeader {
-            title: Qt.formatDate(games.model.date, 'ddd, ') + Qt.formatDate(games.model.date)
+            title: { var d = games.model.date || games.date; return Qt.formatDate(d, 'ddd, ') + Qt.formatDate(d) }
         }
 
         ViewPlaceholder {
@@ -163,21 +164,21 @@ Page {
                 onClicked: games.date = new Date()
             }
             MenuItem {
-                text: qsTr('Previous: ') + Qt.formatDate(games.model.prev, 'ddd, ') + Qt.formatDate(games.model.prev)
-                onClicked: games.date = games.model.prev
+                text: { var d = games.model.prev || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() - 1); return qsTr('Previous: ') + Qt.formatDate(d, 'ddd, ') + Qt.formatDate(d) }
+                onClicked: games.date = (games.model.prev || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() - 1))
             }
         }
 
         PushUpMenu {
             MenuItem {
-                text: qsTr('Next: ') + Qt.formatDate(games.model.next, 'ddd, ') + Qt.formatDate(games.model.next)
-                onClicked: games.date = games.model.next
+                text: { var d = games.model.next || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() + 1); return qsTr('Next: ') + Qt.formatDate(d, 'ddd, ') + Qt.formatDate(d) }
+                onClicked: games.date = (games.model.next || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() + 1))
             }
         }
 
         onDateChanged: {
             cache = {};
-            model.clear();
+            games.clearModel = true;
             refresh();
         }
 
@@ -202,8 +203,13 @@ Page {
         function refresh() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function (e) {
-                if (xhr.readyState == 4)
+                if (xhr.readyState == 4) {
+                    if (games.clearModel)
+                        games.model.clear();
+                    games.clearModel = false;
+
                     games.model.json = xhr.responseText;
+                }
             }
             xhr.open('GET', 'http://liiga.fi/media/game-tracking/' + date.getFullYear().toString() + '-' + ('0' + (date.getMonth() + 1).toString()).substr(-2) + '-' +  ('0' + date.getDate().toString()).substr(-2) + '.json');
             xhr.send();
