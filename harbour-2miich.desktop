@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=2miich
-Exec=2miich
+Icon=harbour-2miich
+Exec=harbour-2miich
 Name=2miich
 Name[fi]=2miich
 
