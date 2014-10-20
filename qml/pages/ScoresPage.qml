@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import PersistentTimer 1.0
+import harbour.toomiich.PersistentTimer 1.0
 import '../models'
 import '../effects'
 import '../widgets'

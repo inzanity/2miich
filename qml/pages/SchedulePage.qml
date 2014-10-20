@@ -21,7 +21,7 @@ import Sailfish.Silica 1.0
 import '..'
 import '../widgets'
 import '../models'
-import DiskCache 1.0
+import harbour.toomiich.DiskCache 1.0
 
 Page {
     property variant mainPage

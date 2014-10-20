@@ -27,7 +27,7 @@ CoverBackground {
 
     Image {
         id: coverLogo
-        source: '/usr/share/icons/hicolor/86x86/apps/harbour-2miich.png'
+        source: '/usr/share/icons/hicolor/86x86/apps/harbour-toomiich.png'
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
     }

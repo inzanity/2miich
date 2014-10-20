@@ -24,9 +24,9 @@
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterType<DiskCache, 1>("DiskCache", 1, 0, "DiskCache");
-    qmlRegisterType<Oledify, 1>("Oledify", 1, 0, "Oledify");
-    qmlRegisterType<PersistentTimer, 1>("PersistentTimer", 1, 0, "PersistentTimer");
+    qmlRegisterType<DiskCache, 1>("harbour.toomiich.DiskCache", 1, 0, "DiskCache");
+    qmlRegisterType<Oledify, 1>("harbour.toomiich.Oledify", 1, 0, "Oledify");
+    qmlRegisterType<PersistentTimer, 1>("harbour.toomiich.PersistentTimer", 1, 0, "PersistentTimer");
     return SailfishApp::main(argc, argv);
 }
 

@@ -10,24 +10,24 @@
 #   - translation filenames have to be changed
 
 # The name of your application
-TARGET = harbour-2miich
+TARGET = harbour-toomiich
 
 CONFIG += sailfishapp
 QT += network
 PKGCONFIG += libiphb
 
-SOURCES += src/harbour-2miich.cpp \
+SOURCES += src/harbour-toomiich.cpp \
     src/diskcache.cpp \
     src/oledify.cpp \
     src/persistenttimer.cpp
 
 OTHER_FILES += \
-    rpm/harbour-2miich.changes.in \
-    rpm/harbour-2miich.spec \
-    rpm/harbour-2miich.yaml \
+    rpm/harbour-toomiich.changes.in \
+    rpm/harbour-toomiich.spec \
+    rpm/harbour-toomiich.yaml \
     translations/*.ts \
-    harbour-2miich.desktop \
-    qml/harbour-2miich.qml \
+    harbour-toomiich.desktop \
+    qml/harbour-toomiich.qml \
     qml/pages/ScoresPage.qml \
     qml/pages/DetailsPage.qml \
     qml/cover/DummyCover.qml \
@@ -45,10 +45,10 @@ OTHER_FILES += \
 # to disable building translations every time, comment out the
 # following CONFIG line
 CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-2miich-fi.ts
+TRANSLATIONS += translations/harbour-toomiich-fi.ts
 
 RESOURCES += \
-    harbour-2miich.qrc
+    harbour-toomiich.qrc
 
 HEADERS += \
     src/diskcache.h \
