@@ -61,7 +61,7 @@
 <context>
     <name>ScoresCover</name>
     <message>
-        <location filename="../qml/cover/ScoresCover.qml" line="66"/>
+        <location filename="../qml/cover/ScoresCover.qml" line="63"/>
         <source>OT</source>
         <translation>JA</translation>
     </message>
@@ -69,7 +69,7 @@
 <context>
     <name>ScoresPage</name>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="153"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="152"/>
         <source>No games for the day</source>
         <translation>Ei otteluita päivälle</translation>
     </message>
@@ -89,7 +89,7 @@
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="174"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="175"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>

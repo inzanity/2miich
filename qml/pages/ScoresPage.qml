@@ -130,7 +130,6 @@ Page {
         property variant cache: new Object
         property bool gamesRunning: false
         property bool gamesPending: false
-        property bool clearModel: false
 
         PersistentTimer {
              interval: games.gamesRunning ? 30000 : 600000
@@ -154,6 +153,7 @@ Page {
         }
 
         PullDownMenu {
+            id: pullDown
             MenuItem {
                 text: qsTr('Statistics')
                 onClicked: pageStack.push('StatisticsPage.qml', { mainPage: page })
@@ -161,24 +161,25 @@ Page {
 
             MenuItem {
                 text: qsTr('Go to today')
-                onClicked: games.date = new Date()
+                onClicked: { pullDown.close(true); games.date = new Date() }
             }
             MenuItem {
                 text: { var d = games.model.prev || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() - 1); return qsTr('Previous: ') + Qt.formatDate(d, 'ddd, ') + Qt.formatDate(d) }
-                onClicked: games.date = (games.model.prev || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() - 1))
+                onClicked: { pullDown.close(true); games.date = (games.model.prev || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() - 1)) }
             }
         }
 
         PushUpMenu {
+            id: pushUp
             MenuItem {
                 text: { var d = games.model.next || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() + 1); return qsTr('Next: ') + Qt.formatDate(d, 'ddd, ') + Qt.formatDate(d) }
-                onClicked: games.date = (games.model.next || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() + 1))
+                onClicked: { pushUp.close(true); games.date = (games.model.next || new Date(games.date.getFullYear(), games.date.getMonth(), games.date.getDate() + 1)) }
             }
         }
 
         onDateChanged: {
             cache = {};
-            games.clearModel = true;
+            games.model.clear();
             refresh();
         }
 
@@ -204,10 +205,6 @@ Page {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function (e) {
                 if (xhr.readyState == 4) {
-                    if (games.clearModel)
-                        games.model.clear();
-                    games.clearModel = false;
-
                     games.model.json = xhr.responseText;
                 }
             }
