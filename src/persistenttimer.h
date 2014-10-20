@@ -22,7 +22,7 @@
 #include <QObject>
 
 extern "C" {
-#include <iphbd/libiphb.h>
+#include <libiphb.h>
 }
 
 class QSocketNotifier;

@@ -21,12 +21,16 @@
 #include "diskcache.h"
 #include "oledify.h"
 #include "persistenttimer.h"
+#include "declarativedbusadaptor.h"
+#include "declarativedbusinterface.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<DiskCache, 1>("harbour.toomiich.DiskCache", 1, 0, "DiskCache");
     qmlRegisterType<Oledify, 1>("harbour.toomiich.Oledify", 1, 0, "Oledify");
     qmlRegisterType<PersistentTimer, 1>("harbour.toomiich.PersistentTimer", 1, 0, "PersistentTimer");
+    qmlRegisterType<DeclarativeDBusInterface, 1>("harbour.toomiich.DBusInterface", 1, 0, "DBusInterface");
+    qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 1, 0, "DBusAdaptor");
     return SailfishApp::main(argc, argv);
 }
 

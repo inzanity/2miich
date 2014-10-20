@@ -20,7 +20,7 @@ import QtQuick 2.0
 import harbour.toomiich.Oledify 1.0
 import harbour.toomiich.PersistentTimer 1.0
 
-import org.nemomobile.dbus 1.0
+import harbour.toomiich.DBusInterface 1.0
 
 Oledify {
     id: oledify

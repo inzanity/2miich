@@ -13,13 +13,22 @@
 TARGET = harbour-toomiich
 
 CONFIG += sailfishapp
-QT += network
-PKGCONFIG += libiphb
+QT += network dbus
+
+INCLUDEPATH += 3rdparty/libiphb/src \
+    3rdparty/libdsme/include \
+    3rdparty/nemo-qml-plugin-dbus/src
+LIBS += -lrt
+
+DEFINES += QT_VERSION_5
 
 SOURCES += src/harbour-toomiich.cpp \
     src/diskcache.cpp \
     src/oledify.cpp \
-    src/persistenttimer.cpp
+    src/persistenttimer.cpp \
+    3rdparty/libiphb/src/libiphb.c \
+    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.cpp
 
 OTHER_FILES += \
     rpm/harbour-toomiich.changes.in \
@@ -53,5 +62,7 @@ RESOURCES += \
 HEADERS += \
     src/diskcache.h \
     src/oledify.h \
-    src/persistenttimer.h
-
+    src/persistenttimer.h \
+    3rdparty/libiphb/src/libiphb.h \
+    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.h \
+    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.h
