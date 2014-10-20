@@ -67,6 +67,8 @@ ListModel {
             }
             status = 3
         } catch (e) {
+            if (count == 0)
+                _object = undefined;
             status = 4;
         }
 
