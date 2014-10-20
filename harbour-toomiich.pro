@@ -31,7 +31,7 @@ SOURCES += src/harbour-toomiich.cpp \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.cpp
 
 OTHER_FILES += \
-    rpm/harbour-toomiich.changes.in \
+    rpm/harbour-toomiich.changes \
     rpm/harbour-toomiich.spec \
     rpm/harbour-toomiich.yaml \
     translations/*.ts \
