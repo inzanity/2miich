@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<PersistentTimer, 1>("harbour.toomiich.PersistentTimer", 1, 0, "PersistentTimer");
     qmlRegisterType<DeclarativeDBusInterface, 1>("harbour.toomiich.DBusInterface", 1, 0, "DBusInterface");
     qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 1, 0, "DBusAdaptor");
-    qmlRegisterType<TzDateParser, 1>("harbour.toomiich.TzDatePaser", 1, 0, "TzDateParser");
+    qmlRegisterType<TzDateParser, 1>("harbour.toomiich.TzDateParser", 1, 0, "TzDateParser");
 
     return SailfishApp::main(argc, argv);
 }
