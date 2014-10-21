@@ -26,6 +26,7 @@ SOURCES += src/harbour-toomiich.cpp \
     src/diskcache.cpp \
     src/oledify.cpp \
     src/persistenttimer.cpp \
+    src/tzdateparser.cpp \
     3rdparty/libiphb/src/libiphb.c \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.cpp \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.cpp
@@ -62,6 +63,7 @@ HEADERS += \
     src/diskcache.h \
     src/oledify.h \
     src/persistenttimer.h \
+    src/tzdateparser.h \
     3rdparty/libiphb/src/libiphb.h \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.h \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.h
