@@ -50,7 +50,7 @@ Page {
         anchors.fill: parent
         model: LiigaModel {
             onStatusChanged: {
-                games.isError = status === 4
+                games.isError = status === 4;
                 if (status === 3) {
                     var teamImages = {
                         'Blues': 'Blues',
