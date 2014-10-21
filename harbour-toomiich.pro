@@ -33,7 +33,6 @@ SOURCES += src/harbour-toomiich.cpp \
 OTHER_FILES += \
     rpm/harbour-toomiich.changes.in \
     rpm/harbour-toomiich.spec \
-    rpm/harbour-toomiich.yaml \
     translations/*.ts \
     harbour-toomiich.desktop \
     qml/harbour-toomiich.qml \
