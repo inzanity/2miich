@@ -72,7 +72,7 @@ Page {
                     var pending = false;
                     var running = false;
                     var goals = false;
-                    if (games.date.toDateString() === new Date().toDateString()) {
+                    if (date && date.toDateString() === new Date().toDateString() && count > 0) {
                         oledify.clear();
 
                         for (var i = 0; i < count; i++) {
@@ -122,6 +122,8 @@ Page {
 
                     games.gamesPending = pending;
                     games.gamesRunning = running;
+                } else if (status === 4) {
+                    oledify.enable = false;
                 }
             }
         }
