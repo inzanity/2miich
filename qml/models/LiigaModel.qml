@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import harbour.toomiich.TzDateParser 1.0
 
 ListModel {
     property string source
@@ -26,6 +27,11 @@ ListModel {
     property variant date: _object ? new Date(_object.dates.current.isoformat) : undefined
     property variant next: _object ? new Date(_object.dates.next.isoformat) : undefined
     property variant prev: _object ? new Date(_object.dates.prev.isoformat) : undefined
+
+    property variant resource: TzDateParser {
+        id: dateParser
+        tz: 'Europe/Helsinki'
+    }
 
     onSourceChanged: {
         clear();
@@ -57,12 +63,13 @@ ListModel {
                         'game': g.home.name + ' - ' + g.away.name,
                         'homescore': (g.home.goals !== '-' ? '' + g.home.goals : ''),
                         'awayscore': (g.away.goals !== '-' ? '' + g.away.goals : ''),
+                        'startTime': (g.started ? undefined : dateParser.parseDateTime(g.status, "'Ottelu alkaa 'd.M.yyyy' klo 'hh:mm")),
                         'started': g.started,
                         'finished': g.finished,
                         'report': g.report,
                         'played': (g.started ? (g.status.match(/([0-9]+:[0-9]+)/) || [undefined, ''])[1] : '00:00'),
                         'overtime': (g.finished ? (g.status.match(/\(([^)]+)\)/) || [undefined, ''])[1] : ''),
-                        'detail': (g.started ? g['latest-event'].time + ' ' + g['latest-event'].text : g.status.split(' ').pop())
+                        'detail': (g.started ? g['latest-event'].time + ' ' + g['latest-event'].text : '')
                     });
             }
             status = 3

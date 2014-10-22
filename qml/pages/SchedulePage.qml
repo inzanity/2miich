@@ -22,6 +22,7 @@ import '..'
 import '../widgets'
 import '../models'
 import harbour.toomiich.DiskCache 1.0
+import harbour.toomiich.TzDateParser 1.0
 
 Page {
     property variant mainPage
@@ -49,6 +50,11 @@ Page {
             xhr.open("GET", uri);
             xhr.send();
         }
+    }
+
+    TzDateParser {
+        id: dateParser
+        tz: 'Europe/Helsinki'
     }
 
     SilicaListView {
@@ -86,8 +92,11 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingLarge
+
+                property variant gameDate: { var i; for (i = index; !listView.model.get(i).date; i--); return dateParser.parseDateTime(listView.model.get(i).date.split(/ /).pop() + ' ' + time, "d.M.yyyy hh:mm"); }
+
                 Label {
-                    text: time
+                    text: Qt.formatTime(parent.gameDate)
                     font.pixelSize: Theme.fontSizeExtraSmall
                     color: parent.parent.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }

@@ -297,7 +297,7 @@ Page {
 
                 Label {
                     font.pixelSize: Theme.fontSizeExtraSmall
-                    text: !finished ? detail : ''
+                    text: (!started ? Qt.formatTime(startTime) : (!finished ? detail : ''))
                     linkColor: Theme.highlightColor
                     width: parent.width
                     horizontalAlignment: started && !finished ? Text.AlignLeft : Text.AlignHCenter
