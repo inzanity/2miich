@@ -72,6 +72,8 @@ Page {
                     var pending = false;
                     var running = false;
                     var goals = false;
+
+                    games.firstGame = undefined;
                     if (date && date.toDateString() === new Date().toDateString() && count > 0) {
                         oledify.clear();
 
@@ -84,6 +86,9 @@ Page {
                             if (games.cache[r.away] !== undefined && r.awayscore > games.cache[r.away])
                                 goals = true;
                             games.cache[r.away] = r.awayscore;
+
+                            if (!games.firstGame || r.startTime < games.firstGame)
+                                games.firstGame = r.startTime;
 
                             if (!r.started)
                                 pending = true;
@@ -135,11 +140,12 @@ Page {
         property variant cache: new Object
         property bool gamesRunning: false
         property bool gamesPending: false
+        property variant firstGame: undefined
 
         PersistentTimer {
-             interval: games.gamesRunning ? 30000 : 600000
+             interval: games.gamesRunning ? 30000 : (games.firstGame ? Math.max(games.firstGame - new Date(), 30000) : 600000)
              maxError: 10000
-             running: games.gamesRunning || games.gamesPending
+             running: games.gamesRunning || !!(games.firstGame && games.gamesPending)
              repeat: true
              wakeUp: oledify.haveLock
 
