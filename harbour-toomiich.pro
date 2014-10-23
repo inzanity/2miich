@@ -49,7 +49,9 @@ OTHER_FILES += \
     qml/widgets/Logo.qml \
     qml/models/ScheduleModel.qml \
     qml/effects/MonochromeEffect.qml \
-    qml/helpers/Toholed.qml
+    qml/helpers/Toholed.qml \
+    qml/widgets/WidthLabel.qml \
+    qml/models/StandingsModel.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

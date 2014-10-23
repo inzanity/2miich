@@ -54,7 +54,7 @@
     <message>
         <location filename="../qml/pages/SchedulePage.qml" line="66"/>
         <source>Schedule</source>
-        <translation type="unfinished">Ohjelma</translation>
+        <translation>Ohjelma</translation>
     </message>
 </context>
 <context>
@@ -70,35 +70,75 @@
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="154"/>
         <source>No games for the day</source>
-        <translation type="unfinished">Ei otteluita päivälle</translation>
+        <translation>Ei otteluita päivälle</translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="160"/>
         <source>Statistics</source>
-        <translation type="unfinished">Tilastot</translation>
+        <translation>Tilastot</translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="165"/>
         <source>Go to today</source>
-        <translation type="unfinished">Näytä tämä päivä</translation>
+        <translation>Näytä tämä päivä</translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="169"/>
         <source>Previous: </source>
-        <translation type="unfinished">Edeltävät: </translation>
+        <translation>Edeltävät: </translation>
     </message>
     <message>
         <location filename="../qml/pages/ScoresPage.qml" line="177"/>
         <source>Next: </source>
-        <translation type="unfinished">Seuraavat: </translation>
+        <translation>Seuraavat: </translation>
     </message>
 </context>
 <context>
     <name>StatisticsPage</name>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="42"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="48"/>
         <source>Statistics</source>
         <translation>Tilastot</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="73"/>
+        <source>Team</source>
+        <translation>Joukkue</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="79"/>
+        <source>G</source>
+        <translation>O</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="86"/>
+        <source>W</source>
+        <translation>V</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="93"/>
+        <source>T</source>
+        <translation>T</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="100"/>
+        <source>L</source>
+        <translation>H</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="107"/>
+        <source>EP</source>
+        <translation>LP</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="114"/>
+        <source>P</source>
+        <translation>P</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="121"/>
+        <source>GD</source>
+        <translation>ME</translation>
     </message>
 </context>
 <context>
@@ -113,7 +153,7 @@
     <message>
         <location filename="../qml/harbour-toomiich.qml" line="27"/>
         <source>2miich</source>
-        <translation type="unfinished">2miich</translation>
+        <translation>2miich</translation>
     </message>
 </context>
 </TS>

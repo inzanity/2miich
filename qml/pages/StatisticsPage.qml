@@ -19,6 +19,9 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import '../widgets'
+import '../models'
+
 Page {
     property variant mainPage
 
@@ -27,7 +30,7 @@ Page {
             var xhr = new XMLHttpRequest;
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    standings.text = xhr.responseText.match(/(?:<div[^>]+team-standings[^>]+>(?:[\r\n]|.)*?)(<table(?:[\r\n]|.)*?<\/table>)/)[1];
+                    standings.model.xml = xhr.responseText.match(/(?:<div[^>]+team-standings[^>]+>(?:[\r\n]|.)*?)(<table(?:[\r\n]|.)*?<\/table>)/)[1];
                 }
             }
             xhr.open("GET", "http://liiga.fi/");
@@ -36,19 +39,184 @@ Page {
     }
     SilicaFlickable {
         anchors.fill: parent
-    Column {
-        anchors.fill: parent
-        PageHeader {
-            title: qsTr("Statistics");
+
+        Column {
+            id: column
+            property ListModel widths: ListModel {}
+            anchors.fill: parent
+            PageHeader {
+                title: qsTr("Statistics");
+            }
+
+            Item {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: children[1].height
+
+                Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.3
+                    color: Theme.highlightColor
+                }
+
+                Row {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Theme.paddingLarge + 41 + 10 // logo width + spacing
+                    anchors.rightMargin: Theme.paddingLarge
+                    height: children[0].contentHeight
+
+                    spacing: 10
+
+                    WidthLabel {
+                        id: tname
+                        text: qsTr("Team")
+
+                        widthModel: column.widths
+                        widthIndex: 0
+                    }
+                    WidthLabel {
+                        text: qsTr("G")
+
+                        widthModel: column.widths
+                        widthIndex: 1
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("W")
+
+                        widthModel: column.widths
+                        widthIndex: 1
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("T")
+
+                        widthModel: column.widths
+                        widthIndex: 1
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("L")
+
+                        widthModel: column.widths
+                        widthIndex: 1
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("EP")
+
+                        widthModel: column.widths
+                        widthIndex: 1
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("P")
+
+                        widthModel: column.widths
+                        widthIndex: 2
+                        horizontalAlignment: Text.AlignRight
+                    }
+                    WidthLabel {
+                        text: qsTr("GD")
+
+                        widthModel: column.widths
+                        widthIndex: 3
+                        horizontalAlignment: Text.AlignRight
+                    }
+
+                }
+            }
+
+            Repeater {
+                id: standings
+                model: StandingsModel {}
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Column {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    Row {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: Theme.paddingLarge
+                        anchors.rightMargin: Theme.paddingLarge
+
+                        spacing: 10
+
+                        height: tname.contentHeight
+                        Logo {
+                            id: logo
+                            team: name
+                        }
+                        WidthLabel {
+                            id: tname
+                            text: name
+
+                            widthModel: column.widths
+                            widthIndex: 0
+                        }
+                        WidthLabel {
+                            text: games
+
+                            widthModel: column.widths
+                            widthIndex: 1
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: wins
+
+                            widthModel: column.widths
+                            widthIndex: 1
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: ties
+
+                            widthModel: column.widths
+                            widthIndex: 1
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: losses
+
+                            widthModel: column.widths
+                            widthIndex: 1
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: extraPoints
+
+                            widthModel: column.widths
+                            widthIndex: 1
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: points
+
+                            widthModel: column.widths
+                            widthIndex: 2
+                            horizontalAlignment: Text.AlignRight
+                        }
+                        WidthLabel {
+                            text: (goalsFor - goalsAgainst)
+
+                            widthModel: column.widths
+                            widthIndex: 3
+                            horizontalAlignment: Text.AlignRight
+                        }
+                    }
+                    Rectangle {
+                        color: Theme.highlightColor
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        height: 1
+                        visible: index == 5 || index == 9
+                    }
+                }
+            }
         }
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: Theme.paddingLarge
-            height: contentHeight
-            id: standings
-            textFormat: Text.RichText
-        }
-    }
     }
 }
