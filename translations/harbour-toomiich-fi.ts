@@ -52,7 +52,7 @@
 <context>
     <name>SchedulePage</name>
     <message>
-        <location filename="../qml/pages/SchedulePage.qml" line="66"/>
+        <location filename="../qml/pages/SchedulePage.qml" line="67"/>
         <source>Schedule</source>
         <translation>Ohjelma</translation>
     </message>

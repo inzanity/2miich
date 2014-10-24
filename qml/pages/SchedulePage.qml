@@ -21,6 +21,7 @@ import Sailfish.Silica 1.0
 import '..'
 import '../widgets'
 import '../models'
+import QtQuick.XmlListModel 2.0
 import harbour.toomiich.DiskCache 1.0
 import harbour.toomiich.TzDateParser 1.0
 
@@ -80,7 +81,22 @@ Page {
             onClicked: { mainPage.date = new Date(Date.parse(section.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
         }
 
-        model: ScheduleModel {}
+        model: ScheduleModel {
+            onStatusChanged: {
+                if (status == XmlListModel.Ready) {
+                    var i;
+
+                    for (i = 0; i < count; i++) {
+                        var r = get(i);
+
+                        if (r.date && Date.parse(r.date.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3')) >= mainPage.date) {
+                            listView.positionViewAtIndex(i, ListView.Center);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         delegate: BackgroundItem {
             height: Theme.fontSizeExtraSmall
