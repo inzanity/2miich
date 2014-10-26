@@ -31,7 +31,7 @@ ShaderEffect {
         "varying highp vec2 qt_TexCoord0;" +
         "void main() {" +
         "    highp vec4 c = texture2D(source, qt_TexCoord0);" +
-        "    highp float m = (c.r + c.g + c.b) / 3.0;" +
+        "    highp float m = (c.r * 11.0 + c.g * 16.0 + c.b * 5.0) / 32.0;" +
         "    gl_FragColor = vec4(color.r * m, color.g * m, color.b * m, c.a) * qt_Opacity;" +
         "}"
 }
