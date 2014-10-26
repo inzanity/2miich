@@ -116,6 +116,9 @@ Page {
 
                         oledify.enable = true;
                         oledify.update();
+
+                        if (goals)
+                            oledify.blink();
                     } else {
                         oledify.enable = false;
                     }

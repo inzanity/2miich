@@ -143,4 +143,9 @@ Oledify {
             tohOled.call("drawPicture", [0, 0, oledify.data]);
         }
     }
+
+    function blink() {
+        if (haveLock)
+            tohOled.call("draw", ["blink", 3]);
+    }
 }
