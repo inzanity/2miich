@@ -20,6 +20,7 @@
 #define PERSISTENTTIMER_H
 
 #include <QObject>
+#include <QElapsedTimer>
 
 extern "C" {
 #include <libiphb.h>
@@ -41,10 +42,6 @@ public:
     explicit PersistentTimer(QObject *parent = 0);
     virtual ~PersistentTimer();
 
-    Q_INVOKABLE void start();
-    Q_INVOKABLE void restart();
-    Q_INVOKABLE void stop();
-
     Q_INVOKABLE int interval() const;
     Q_INVOKABLE bool repeat() const;
     Q_INVOKABLE bool running() const;
@@ -58,6 +55,12 @@ public:
     Q_INVOKABLE void setTriggeredOnStart(bool triggeredOnStart);
     Q_INVOKABLE void setMaxError(int maxError);
     Q_INVOKABLE void setWakeUp(bool wakeUp);
+
+public slots:
+    void start();
+    void restart();
+    void stop();
+
 signals:
     void triggered();
 
@@ -72,9 +75,13 @@ private slots:
     void readyRead(int sock);
 
 private:
+    void _start();
+    void _stop();
+
     QSocketNotifier *m_notifier;
     iphb_t m_iphb;
     QTimer *m_fallback;
+    QElapsedTimer m_helper;
 
     int m_interval;
     bool m_repeat;

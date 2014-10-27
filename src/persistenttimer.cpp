@@ -22,11 +22,13 @@
 
 #include <QtGlobal>
 #include <QDebug>
+#include <QDateTime>
 
 PersistentTimer::PersistentTimer(QObject *parent) :
     QObject(parent),
     m_notifier(NULL),
     m_fallback(NULL),
+    m_helper(),
     m_interval(1000),
     m_repeat(false),
     m_running(false),
@@ -74,21 +76,13 @@ PersistentTimer::~PersistentTimer()
         iphb_close(m_iphb);
 }
 
-
-
 void PersistentTimer::start()
 {
     if (m_running)
         return;
 
-    if (m_iphb) {
-        iphb_wait2(m_iphb,
-                   (m_interval - m_maxError) / 1000,
-                   (m_interval + m_maxError) / 1000,
-                   0, m_wakeUp);
-    } else {
-        m_fallback->start();
-    }
+    m_helper.start();
+    _start();
 
     m_running = true;
 
@@ -116,12 +110,7 @@ void PersistentTimer::stop()
     if (!m_running)
         return;
 
-    if (m_iphb) {
-        iphb_I_woke_up(m_iphb);
-    } else {
-        m_fallback->stop();
-    }
-
+    _stop();
     m_running = false;
 
     if (!m_dontEmit)
@@ -164,6 +153,8 @@ void PersistentTimer::setInterval(int interval)
         m_fallback->setInterval(interval);
     m_interval = interval;
 
+    restart();
+
     emit intervalChanged();
 }
 
@@ -195,6 +186,9 @@ void PersistentTimer::setMaxError(int maxError)
 {
     m_maxError = maxError;
 
+    if (m_iphb)
+        restart();
+
     emit maxErrorChanged();
 }
 
@@ -204,8 +198,10 @@ void PersistentTimer::setWakeUp(bool wakeUp)
         return;
     m_wakeUp = wakeUp;
 
-    if (m_iphb && m_running)
-        restart();
+    if (m_iphb && m_running) {
+        _stop();
+        _start();
+    }
 
     emit wakeUpChanged();
 }
@@ -228,4 +224,27 @@ void PersistentTimer::readyRead(int)
         emit runningChanged();
 
     emit triggered();
+}
+
+void PersistentTimer::_start()
+{
+    if (m_iphb) {
+        iphb_wait2(m_iphb,
+                   (m_interval - m_helper.elapsed() - m_maxError) / 1000,
+                   (m_interval - m_helper.elapsed() + m_maxError) / 1000,
+                   0, m_wakeUp);
+        qDebug() << QDateTime::currentDateTime().addMSecs(m_interval - m_helper.elapsed() - m_maxError) << QDateTime::currentDateTime().addMSecs(m_interval - m_helper.elapsed() + m_maxError);
+    } else {
+        m_fallback->start();
+    }
+}
+
+void PersistentTimer::_stop()
+{
+    if (m_iphb) {
+        iphb_I_woke_up(m_iphb);
+        qDebug() << "Stopped";
+    } else {
+        m_fallback->stop();
+    }
 }
