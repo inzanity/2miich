@@ -72,6 +72,8 @@ Page {
                     var pending = false;
                     var running = false;
                     var goals = false;
+                    var firstGame = undefined;
+
                     if (date && date.toDateString() === new Date().toDateString() && count > 0) {
                         oledify.clear();
 
@@ -84,6 +86,9 @@ Page {
                             if (games.cache[r.away] !== undefined && r.awayscore > games.cache[r.away])
                                 goals = true;
                             games.cache[r.away] = r.awayscore;
+
+                            if (!firstGame || r.startTime < firstGame)
+                                firstGame = r.startTime;
 
                             if (!r.started)
                                 pending = true;
@@ -124,7 +129,8 @@ Page {
                     }
 
                     games.gamesPending = pending;
-                    games.gamesRunning = running;
+                    games.gamesRunning = running || (pending && firstGame - new Date() < 600000);
+
                 } else if (status === 4) {
                     oledify.enable = false;
                 }
