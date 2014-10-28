@@ -96,49 +96,64 @@
 <context>
     <name>StatisticsPage</name>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="48"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="64"/>
         <source>Statistics</source>
         <translation>Tilastot</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="73"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="68"/>
+        <source>Standings</source>
+        <translation>Sarjataulukko</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="92"/>
         <source>Team</source>
         <translation>Joukkue</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="79"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="98"/>
         <source>G</source>
         <translation>O</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="86"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="105"/>
         <source>W</source>
         <translation>V</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="93"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="112"/>
         <source>T</source>
         <translation>T</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="100"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="119"/>
         <source>L</source>
         <translation>H</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="107"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="126"/>
         <source>EP</source>
         <translation>LP</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="114"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="133"/>
         <source>P</source>
         <translation>P</translation>
     </message>
     <message>
-        <location filename="../qml/pages/StatisticsPage.qml" line="121"/>
+        <location filename="../qml/pages/StatisticsPage.qml" line="140"/>
         <source>GD</source>
         <translation>ME</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="268"/>
+        <source>Point leaders</source>
+        <translation>Pistepörssi</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/StatisticsPage.qml" line="285"/>
+        <source>Goal leaders</source>
+        <translation>Maalipörssi</translation>
     </message>
 </context>
 <context>

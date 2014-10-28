@@ -31,24 +31,35 @@ Rectangle {
 
         property variant teams: {
             'Blues': 0,
+                    'BLU': 0,
                     'HIFK': 1,
+                    'IFK': 1,
                     'HPK': 2,
                     'Ilves': 3,
+                    'ILV': 3,
                     'Jokerit': 4,
                     'JYP': 5,
                     'Kalpa': 6,
                     'KalPa': 6,
+                    'KAL': 6,
                     'Kärpät': 7,
                     'Karpat': 7,
+                    'KÄR': 7,
                     'Lukko': 8,
+                    'LUK': 8,
                     'Pelicans': 9,
+                    'PEL': 9,
                     'Saipa': 10,
                     'SaiPa': 10,
+                    'SAI': 10,
                     'Tappara': 11,
+                    'TAP': 11,
                     'TPS': 12,
                     'Ässät': 13,
                     'Assat': 13,
-                    'Sport': 14
+                    'ÄSS': 13,
+                    'Sport': 14,
+                    'SPO': 14
         }
         property int teamIndex: teams[team]
         anchors.centerIn: parent

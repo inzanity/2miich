@@ -31,6 +31,14 @@ Page {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     standings.model.xml = xhr.responseText.match(/(?:<div[^>]+team-standings[^>]+>(?:[\r\n]|.)*?)(<table(?:[\r\n]|.)*?<\/table>)/)[1];
+                    var tmp = xhr.responseText.match(/(<div[^>]+goal-leaders[^>]+>(?:[\r\n]|.)*?<\/table>[\r\n\s]*<\/div>)/)[1];
+                    tmp = tmp.replace(/<(?:img|br)[^>]*>/g, '');
+                    goalLeaders.model.xml = tmp;
+                    goalLeader.model.xml = tmp;
+                    tmp = xhr.responseText.match(/(<div[^>]+point-leaders[^>]+>(?:[\r\n]|.)*?<\/table>[\r\n\s]*<\/div>)/)[1];
+                    tmp = tmp.replace(/<(?:img|br)[^>]*>/g, '');
+                    pointLeaders.model.xml = tmp;
+                    pointLeader.model.xml = tmp;
                 }
             }
             xhr.open("GET", "http://liiga.fi/");
@@ -40,12 +48,24 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
+        contentHeight: column.height
+        contentWidth: parent.width
+
+        VerticalScrollDecorator {}
+
         Column {
             id: column
             property ListModel widths: ListModel {}
-            anchors.fill: parent
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+
             PageHeader {
                 title: qsTr("Statistics");
+            }
+
+            Heading {
+                text: qsTr("Standings")
             }
 
             Item {
@@ -69,7 +89,6 @@ Page {
                     spacing: 10
 
                     WidthLabel {
-                        id: tname
                         text: qsTr("Team")
 
                         widthModel: column.widths
@@ -146,13 +165,12 @@ Page {
 
                         spacing: 10
 
-                        height: tname.contentHeight
+                        height: children[1].contentHeight
                         Logo {
                             id: logo
                             team: name
                         }
                         WidthLabel {
-                            id: tname
                             text: name
 
                             widthModel: column.widths
@@ -216,6 +234,68 @@ Page {
                         visible: index == 5 || index == 9
                     }
                 }
+            }
+
+            Component {
+                id: player
+
+                Item {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Theme.paddingLarge
+                    anchors.rightMargin: Theme.paddingLarge
+
+                    height: children[1].contentHeight
+
+                    Logo {
+                        id: pLogo
+                        anchors.left: parent.left
+                        team: teamName
+                    }
+                    Label {
+                        text: name
+                        anchors.left: pLogo.right
+                        anchors.leftMargin: 10
+                    }
+                    Label {
+                        text: detail
+                        anchors.right: parent.right
+                    }
+                }
+            }
+
+            Heading {
+                text: qsTr("Point leaders")
+            }
+
+            Repeater {
+                id: pointLeader
+                model: LeaderModel {}
+
+                delegate: player
+            }
+            Repeater {
+                id: pointLeaders
+                model: PlayerListModel {}
+
+                delegate: player
+            }
+
+            Heading {
+                text: qsTr("Goal leaders")
+            }
+
+            Repeater {
+                id: goalLeader
+                model: LeaderModel {}
+
+                delegate: player
+            }
+            Repeater {
+                id: goalLeaders
+                model: PlayerListModel {}
+
+                delegate: player
             }
         }
     }

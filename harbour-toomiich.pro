@@ -51,7 +51,10 @@ OTHER_FILES += \
     qml/effects/MonochromeEffect.qml \
     qml/helpers/Toholed.qml \
     qml/widgets/WidthLabel.qml \
-    qml/models/StandingsModel.qml
+    qml/models/StandingsModel.qml \
+    qml/models/LeaderModel.qml \
+    qml/models/PlayerListModel.qml \
+    qml/widgets/Heading.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
