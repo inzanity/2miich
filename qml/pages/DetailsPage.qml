@@ -26,7 +26,7 @@ import '../models'
 
 Page {
     id: page
-    property string source
+    property string source: details.report
     property variant details
 
     onSourceChanged: refresh();

@@ -32,6 +32,17 @@ Page {
 
     onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(schedule, { mainPage: page }); }
 
+    onDetailsIndexChanged: {
+        if (detailsIndex != -1) {
+            if (status === PageStatus.Active) {
+                pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { details: games.model.get(detailsIndex) });
+            } else {
+                pageStack.replaceAbove(page, Qt.resolvedUrl("DetailsPage.qml"), { details: games.model.get(detailsIndex) });
+            }
+        } else {
+            pageStack.pop(page);
+        }
+    }
     Component {
         id: schedule
         SchedulePage {}
@@ -200,6 +211,8 @@ Page {
             } else {
                 cover = component.createObject();
                 cover.model = model;
+                cover.detailsIndex = Qt.binding(function () { return detailsIndex; });
+                cover.next.connect(function () { detailsIndex = (detailsIndex + 2) % (games.model.count + 1) - 1 })
             }
         }
 
@@ -314,7 +327,6 @@ Page {
                 }
             }
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { source: report, details: games.model.get(index) })
                 detailsIndex = index
             }
         }

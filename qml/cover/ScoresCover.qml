@@ -23,7 +23,30 @@ import '../widgets'
 import '../effects'
 
 CoverBackground {
-    property alias model: view.model;
+    id: cover
+    property alias model: view.model
+    property int detailsIndex: -1
+
+    signal next()
+
+    CoverActionList {
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-next'
+            onTriggered: {
+                next();
+            }
+        }
+    }
+
+    onDetailsIndexChanged: {
+        if (detailsIndex != -1) {
+            view.positionViewAtIndex(detailsIndex, ListView.Center);
+        } else {
+            view.contentY = (view.contentHeight - view.height) / 2
+        }
+    }
+
+    Component.onCompleted: view.contentY = (view.contentHeight - view.height) / 2
 
     Image {
         id: coverLogo
@@ -41,17 +64,34 @@ CoverBackground {
     ListView {
         id: view;
 
+        topMargin: cover.height
+        bottomMargin: cover.height
+
         anchors.fill: parent
         anchors.topMargin: Theme.paddingMedium
 
+        onModelChanged: model.countChanged.connect(function () { view.contentY = Qt.binding(function () { return (view.contentHeight - view.height) / 2 }); })
+
         delegate: Rectangle {
+            id: row
             color: 'transparent'
             width: view.width
-            height: Math.max(homeScore.height, awayScore.height, awayLogo.height)
+            height: isActive ? homeScore.height + awayScore.height : Math.max(homeScore.height, awayScore.height, awayLogo.height)
+            property bool isActive: view.model.count === 1 || detailsIndex === index
+            property int fontSize: (detailsIndex == -1 && view.model.count > 1 ?
+                                        Theme.fontSizeMedium :
+                                        (isActive ?
+                                             Theme.fontSizeHuge :
+                                             Theme.fontSizeExtraSmall))
+
+            Behavior on fontSize {
+                NumberAnimation { duration: 200 }
+            }
+
             ProgressCircle {
-                height: homeLogo.height
+                height: bigHomeLogo.height
                 width: height
-                anchors.right: homeLogo.left
+                anchors.right: bigHomeLogo.left
                 visible: started && !finished
                 property real p: played.split(':').reduce(function (a, b) { return a * 60 + b * 1 })
                 value: (((p - 1) % 1200) + 1) / ((tournament === 'rs' && p > 3600) ? 300.0 : 1200.0)
@@ -65,37 +105,67 @@ CoverBackground {
                 }
             }
 
-            Logo {
-                id: homeLogo
-                team: home
+            Image {
+                id: bigHomeLogo
                 anchors.right: homeScore.left
+                source: isActive ? 'http://liiga.fi' + homelogo : ''
+                height: children[0].height * (isActive ? 2 : 1)
+                width: children[0].width * (isActive ? 2 : 1)
+
+                Behavior on width { NumberAnimation { duration: 200 } }
+                Behavior on height { NumberAnimation { duration: 200 } }
+
+                Logo {
+                    id: homeLogo
+                    team: home
+                    anchors.centerIn: parent
+                    visible: !isActive || parent.status !== Image.Ready
+                    scale: isActive ? 2.0 : 1.0
+                    Behavior on scale { NumberAnimation { duration: 200 } }
+                }
             }
             Label {
                 id: homeScore
                 text: homescore
                 anchors.right: separator.left
                 font.bold: homescore >= awayscore
+                font.pixelSize: row.fontSize
             }
 
             Label {
                 id: separator
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: '-'
+                font.pixelSize: row.fontSize
             }
             Label {
                 id: awayScore
                 text: awayscore
                 anchors.left: separator.right
                 font.bold: awayscore >= homescore
+                font.pixelSize: row.fontSize
             }
-
-            Logo {
-                id: awayLogo
+            Image {
+                id: bigAwayLogo
                 anchors.left: awayScore.right
-                team: away
+                source: isActive ? 'http://liiga.fi' + awaylogo : ''
+                height: children[0].height * (isActive ? 2 : 1)
+                width: children[0].width * (isActive ? 2 : 1)
+
+                Behavior on width { NumberAnimation { duration: 200 } }
+                Behavior on height { NumberAnimation { duration: 200 } }
+
+                Logo {
+                    id: awayLogo
+                    team: away
+                    anchors.centerIn: parent
+                    visible: !isActive || parent.status !== Image.Ready
+                    scale: isActive ? 2.0 : 1.0
+                    Behavior on scale { NumberAnimation { duration: 200 } }
+                }
             }
             Label {
-                anchors.left: awayLogo.right
+                anchors.left: bigAwayLogo.right
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: overtime
             }
