@@ -138,7 +138,7 @@ Page {
         }
         property variant date: new Date();
         property bool isError: false
-        property variant cache: new Object
+        property var cache: ({})
         property bool gamesRunning: false
         property bool gamesPending: false
 
