@@ -84,10 +84,6 @@ CoverBackground {
                                              Theme.fontSizeHuge :
                                              Theme.fontSizeExtraSmall))
 
-            Behavior on fontSize {
-                NumberAnimation { duration: 200 }
-            }
-
             ProgressCircle {
                 height: bigHomeLogo.height
                 width: height
@@ -112,16 +108,12 @@ CoverBackground {
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
 
-                Behavior on width { NumberAnimation { duration: 200 } }
-                Behavior on height { NumberAnimation { duration: 200 } }
-
                 Logo {
                     id: homeLogo
                     team: home
                     anchors.centerIn: parent
                     visible: !isActive || parent.status !== Image.Ready
                     scale: isActive ? 2.0 : 1.0
-                    Behavior on scale { NumberAnimation { duration: 200 } }
                 }
             }
             Label {
@@ -152,16 +144,12 @@ CoverBackground {
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
 
-                Behavior on width { NumberAnimation { duration: 200 } }
-                Behavior on height { NumberAnimation { duration: 200 } }
-
                 Logo {
                     id: awayLogo
                     team: away
                     anchors.centerIn: parent
                     visible: !isActive || parent.status !== Image.Ready
                     scale: isActive ? 2.0 : 1.0
-                    Behavior on scale { NumberAnimation { duration: 200 } }
                 }
             }
             Label {
