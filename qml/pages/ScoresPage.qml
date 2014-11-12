@@ -33,6 +33,7 @@ Page {
     onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(schedule, { mainPage: page }); }
 
     onDetailsIndexChanged: {
+        oledify.redraw(games.model);
         if (detailsIndex != -1) {
             if (status === PageStatus.Active) {
                 pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { details: games.model.get(detailsIndex) });
@@ -54,6 +55,63 @@ Page {
 
     Toholed {
         id: oledify
+
+        function redraw(model) {
+            if (!oledify.enable)
+                return;
+
+            var teamImages = {
+                'Blues': 'Blues',
+                'HIFK': 'HIFK',
+                'HPK': 'HPK',
+                'Ilves': 'Ilves',
+                'JYP': 'JYP',
+                'KalPa': 'KalPa',
+                'Kärpät': 'Karpat',
+                'Lukko': 'Lukko',
+                'Pelicans': 'Pelicans',
+                'SaiPa': 'SaiPa',
+                'Tappara': 'Tappara',
+                'TPS': 'TPS',
+                'Sport': 'Sport',
+                'Ässät': 'Assat'
+            };
+            var r;
+            oledify.clear();
+
+            if (detailsIndex === -1 && model.count > 1) {
+                for (var i = 0; i < model.count; i++) {
+                    r = model.get(i);
+                    oledify.drawPixmap((i & 1) * 66, (i >> 1) * 16, ':/images/' + teamImages[r.home] + '-1bit.png');
+                    oledify.drawText((i & 1) * 66 + 17, (i >> 1) * 16, true, -1, r.homescore);
+                    oledify.drawText((i & 1) * 66 + 30, (i >> 1) * 16, true, 0, '-');
+                    oledify.drawText((i & 1) * 66 + 45, (i >> 1) * 16, true, 1, r.awayscore);
+                    oledify.drawPixmap((i & 1) * 66 + 46, (i >> 1) * 16, ':/images/' + teamImages[r.away] + '-1bit.png');
+                }
+            } else if (model.count) {
+                r = model.get(Math.max(detailsIndex, 0));
+                oledify.drawPixmap(0, 0, ':/images/' + teamImages[r.home] + '-1bit-40.png');
+                oledify.drawText(42, 0, true, -1, r.homescore);
+                oledify.drawText(64, 0, true, 0, '-');
+                oledify.drawText(86, 0, true, 1, r.awayscore);
+                oledify.drawText(64, 16, true, 0, r.played);
+                oledify.drawPixmap(88, 0, ':/images/' + teamImages[r.away] + '-1bit-40.png');
+            }
+
+            if (model.count < 7 || detailsIndex !== -1) {
+                oledify.clockW = 128;
+                oledify.clockX = 0;
+                oledify.clockEnabled = true;
+            } else if (model.count < 8) {
+                oledify.clockW = 64;
+                oledify.clockX = 64;
+                oledify.clockEnabled = true;
+            } else {
+                oledify.clockEnabled = false;
+            }
+
+            oledify.update();
+        }
     }
 
     SilicaListView {
@@ -63,31 +121,12 @@ Page {
             onStatusChanged: {
                 games.isError = status === 4;
                 if (status === 3) {
-                    var teamImages = {
-                        'Blues': 'Blues',
-                        'HIFK': 'HIFK',
-                        'HPK': 'HPK',
-                        'Ilves': 'Ilves',
-                        'JYP': 'JYP',
-                        'KalPa': 'KalPa',
-                        'Kärpät': 'Karpat',
-                        'Lukko': 'Lukko',
-                        'Pelicans': 'Pelicans',
-                        'SaiPa': 'SaiPa',
-                        'Tappara': 'Tappara',
-                        'TPS': 'TPS',
-                        'Sport': 'Sport',
-                        'Ässät': 'Assat'
-                    };
-
                     var pending = false;
                     var running = false;
                     var goals = false;
                     var firstGame = undefined;
 
                     if (date && date.toDateString() === new Date().toDateString() && count > 0) {
-                        oledify.clear();
-
                         for (var i = 0; i < count; i++) {
                             var r = get(i);
                             if (games.cache[r.home] !== undefined && r.homescore > games.cache[r.home])
@@ -110,28 +149,10 @@ Page {
                                 pageStack.nextPage(page).details = r;
                                 pageStack.nextPage(page).refresh();
                             }
-
-                            oledify.drawPixmap((i & 1) * 66, (i >> 1) * 16, ':/images/' + teamImages[r.home] + '-1bit.png');
-                            oledify.drawText((i & 1) * 66 + 17, (i >> 1) * 16, true, -1, r.homescore);
-                            oledify.drawText((i & 1) * 66 + 30, (i >> 1) * 16, true, 0, '-');
-                            oledify.drawText((i & 1) * 66 + 45, (i >> 1) * 16, true, 1, r.awayscore);
-                            oledify.drawPixmap((i & 1) * 66 + 46, (i >> 1) * 16, ':/images/' + teamImages[r.away] + '-1bit.png');
-                        }
-
-                        if (count < 7) {
-                            oledify.clockW = 128;
-                            oledify.clockX = 0;
-                            oledify.clockEnabled = true;
-                        } else if (count < 8) {
-                            oledify.clockW = 64;
-                            oledify.clockX = 64;
-                            oledify.clockEnabled = true;
-                        } else {
-                            oledify.clockEnabled = false;
                         }
 
                         oledify.enable = true;
-                        oledify.update();
+                        oledify.redraw(this);
 
                         if (goals)
                             oledify.blink();

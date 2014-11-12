@@ -76,7 +76,7 @@ CoverBackground {
             id: row
             color: 'transparent'
             width: view.width
-            height: isActive ? homeScore.height + awayScore.height : Math.max(homeScore.height, awayScore.height, awayLogo.height)
+            height: isActive ? Math.max(homeScore.height, awayScore.height) + timeLabel.height : Math.max(homeScore.height, awayScore.height, awayLogo.height)
             property bool isActive: view.model.count === 1 || detailsIndex === index
             property int fontSize: (detailsIndex == -1 && view.model.count > 1 ?
                                         Theme.fontSizeMedium :
@@ -88,7 +88,7 @@ CoverBackground {
                 height: bigHomeLogo.height
                 width: height
                 anchors.right: bigHomeLogo.left
-                visible: started && !finished
+                visible: started && !finished && !isActive
                 property real p: played.split(':').reduce(function (a, b) { return a * 60 + b * 1 })
                 value: (((p - 1) % 1200) + 1) / ((tournament === 'rs' && p > 3600) ? 300.0 : 1200.0)
                 inAlternateCycle: !((Math.floor(Math.max(p - 1, 0) / 1200) + 1) % 2)
@@ -156,6 +156,13 @@ CoverBackground {
                 anchors.left: bigAwayLogo.right
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: overtime
+            }
+            Label {
+                id: timeLabel
+                text: played
+                visible: isActive
+                anchors.horizontalCenter: separator.horizontalCenter
+                anchors.top: homeScore.bottom
             }
         }
     }
