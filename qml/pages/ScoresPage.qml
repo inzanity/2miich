@@ -233,7 +233,8 @@ Page {
                 cover = component.createObject();
                 cover.model = model;
                 cover.detailsIndex = Qt.binding(function () { return detailsIndex; });
-                cover.next.connect(function () { detailsIndex = (detailsIndex + 2) % (games.model.count + 1) - 1 })
+                cover.next.connect(function () { detailsIndex = (detailsIndex + 2) % (games.model.count + 1) - 1 });
+                cover.prev.connect(function () { detailsIndex = (detailsIndex + games.model.count + 1) % (games.model.count + 1) - 1 });
             }
         }
 

@@ -28,8 +28,15 @@ CoverBackground {
     property int detailsIndex: -1
 
     signal next()
+    signal prev()
 
     CoverActionList {
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-previous'
+            onTriggered: {
+                prev();
+            }
+        }
         CoverAction {
             iconSource: 'image://theme/icon-cover-next'
             onTriggered: {
@@ -37,16 +44,6 @@ CoverBackground {
             }
         }
     }
-
-    onDetailsIndexChanged: {
-        if (detailsIndex != -1) {
-            view.positionViewAtIndex(detailsIndex, ListView.Center);
-        } else {
-            view.contentY = (view.contentHeight - view.height) / 2
-        }
-    }
-
-    Component.onCompleted: view.contentY = (view.contentHeight - view.height) / 2
 
     Image {
         id: coverLogo
@@ -64,13 +61,9 @@ CoverBackground {
     ListView {
         id: view;
 
-        topMargin: cover.height
-        bottomMargin: cover.height
-
         anchors.fill: parent
         anchors.topMargin: Theme.paddingMedium
-
-        onModelChanged: model.countChanged.connect(function () { view.contentY = Qt.binding(function () { return (view.contentHeight - view.height) / 2 }); })
+        anchors.bottomMargin: Theme.paddingMedium
 
         delegate: Rectangle {
             id: row
@@ -92,6 +85,7 @@ CoverBackground {
                 property real p: played.split(':').reduce(function (a, b) { return a * 60 + b * 1 })
                 value: (((p - 1) % 1200) + 1) / ((tournament === 'rs' && p > 3600) ? 300.0 : 1200.0)
                 inAlternateCycle: !((Math.floor(Math.max(p - 1, 0) / 1200) + 1) % 2)
+                onInAlternateCycleChanged: inAlternateCycle = Qt.binding(function () { return !((Math.floor(Math.max(p - 1, 0) / 1200) + 1) % 2); });
 
                 Label {
                     anchors.centerIn: parent
@@ -104,9 +98,10 @@ CoverBackground {
             Image {
                 id: bigHomeLogo
                 anchors.right: homeScore.left
-                source: isActive ? 'http://liiga.fi' + homelogo : ''
+                source: isActive && homelogo ? 'http://liiga.fi' + homelogo : ''
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
+                y: isActive ? (timeLabel.y + timeLabel.height - height) / 2 : 0
 
                 Logo {
                     id: homeLogo
@@ -140,9 +135,10 @@ CoverBackground {
             Image {
                 id: bigAwayLogo
                 anchors.left: awayScore.right
-                source: isActive ? 'http://liiga.fi' + awaylogo : ''
+                source: isActive && awaylogo ? 'http://liiga.fi' + awaylogo : ''
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
+                y: isActive ? (timeLabel.y + timeLabel.height - height) / 2 : 0
 
                 Logo {
                     id: awayLogo
