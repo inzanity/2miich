@@ -29,6 +29,7 @@ public:
 
     Q_INVOKABLE QString getFile(const QString &what, int maxage = 3600);
     Q_INVOKABLE bool setFile(const QString &what, const QString &to);
+    Q_INVOKABLE bool setFileBinary(const QString &what, const QByteArray &to);
 signals:
 
 public slots:

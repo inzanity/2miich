@@ -42,13 +42,13 @@ QString DiskCache::getFile(const QString &what, int maxage)
 
     QFileInfo info(QDir(caches[0]).filePath(fn));
 
-    if (!info.exists() || info.lastModified().secsTo(QDateTime::currentDateTime()) > maxage)
+    if (!info.exists() || (maxage > 0 && info.lastModified().secsTo(QDateTime::currentDateTime()) > maxage))
         return QString();
 
     return QUrl::fromLocalFile(info.absoluteFilePath()).toString();
 }
 
-bool DiskCache::setFile(const QString &what, const QString &towhat)
+bool DiskCache::setFileBinary(const QString &what, const QByteArray &towhat)
 {
     QString fn = QCryptographicHash::hash(what.toUtf8(), QCryptographicHash::Md5).toHex();
     QStringList caches = QStandardPaths::standardLocations(QStandardPaths::CacheLocation);
@@ -65,8 +65,13 @@ bool DiskCache::setFile(const QString &what, const QString &towhat)
     if (!out.isOpen())
         return false;
 
-    rv = out.write(towhat.toUtf8());
+    rv = out.write(towhat);
     out.close();
 
     return rv;
+}
+
+bool DiskCache::setFile(const QString &what, const QString &towhat)
+{
+    return setFileBinary(what, towhat.toUtf8());
 }
