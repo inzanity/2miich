@@ -106,7 +106,7 @@ Oledify {
                 if (!clockEnabled)
                     return false;
                 clock.clear();
-                clock.drawText(width / 2, 0, true, 0, new Date().toLocaleTimeString(Qt.locale(), "hh:mm"));
+                clock.drawText(width / 2, 0, true, 0, 14, false, new Date().toLocaleTimeString(Qt.locale(), "hh:mm"));
                 tohOled.call("drawPicture", [x, y, clock.data]);
             }
         }
@@ -138,7 +138,7 @@ Oledify {
         if (haveLock) {
             if (clockEnabled) {
                 oledify.clearRect(clockX, clockY, clockW, clockH);
-                oledify.drawText(clockX + clockW / 2, clockY, true, 0, new Date().toLocaleTimeString(Qt.locale(), "hh:mm"))
+                oledify.drawText(clockX + clockW / 2, clockY, true, 0, 14, false, new Date().toLocaleTimeString(Qt.locale(), "hh:mm"))
             }
             tohOled.call("drawPicture", [0, 0, oledify.data]);
         }

@@ -88,12 +88,14 @@ void Oledify::drawPixmap(int x, int y, QString pixmap)
     p.end();
 }
 
-void Oledify::drawText(int x, int y, bool white, int align, QString text)
+void Oledify::drawText(int x, int y, bool white, int align, int size, bool bold, QString text)
 {
     QPainter p;
     QFont font("Sail Sans Pro");
 
-    font.setPixelSize(14);
+    font.setPixelSize(size);
+    if (bold)
+        font.setWeight(QFont::Bold);
 
     p.begin(buffer);
 

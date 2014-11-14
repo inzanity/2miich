@@ -84,18 +84,18 @@ Page {
                 for (var i = 0; i < model.count; i++) {
                     r = model.get(i);
                     oledify.drawPixmap((i & 1) * 66, (i >> 1) * 16, ':/images/' + teamImages[r.home] + '-1bit.png');
-                    oledify.drawText((i & 1) * 66 + 17, (i >> 1) * 16, true, -1, r.homescore);
-                    oledify.drawText((i & 1) * 66 + 30, (i >> 1) * 16, true, 0, '-');
-                    oledify.drawText((i & 1) * 66 + 45, (i >> 1) * 16, true, 1, r.awayscore);
+                    oledify.drawText((i & 1) * 66 + 17, (i >> 1) * 16, true, -1, 14, false, r.homescore);
+                    oledify.drawText((i & 1) * 66 + 30, (i >> 1) * 16, true, 0, 14, false, '-');
+                    oledify.drawText((i & 1) * 66 + 45, (i >> 1) * 16, true, 1, 14, false, r.awayscore);
                     oledify.drawPixmap((i & 1) * 66 + 46, (i >> 1) * 16, ':/images/' + teamImages[r.away] + '-1bit.png');
                 }
             } else if (model.count) {
                 r = model.get(Math.max(detailsIndex, 0));
                 oledify.drawPixmap(0, 0, ':/images/' + teamImages[r.home] + '-1bit-40.png');
-                oledify.drawText(42, 0, true, -1, r.homescore);
-                oledify.drawText(64, 0, true, 0, '-');
-                oledify.drawText(86, 0, true, 1, r.awayscore);
-                oledify.drawText(64, 16, true, 0, r.played);
+                oledify.drawText(42, 0, true, -1, 30, true, r.homescore);
+                oledify.drawText(64, 0, true, 0, 30, true, '-');
+                oledify.drawText(86, 0, true, 1, 30, true, r.awayscore);
+                oledify.drawText(64, 32, true, 0, 14, false, r.played);
                 oledify.drawPixmap(88, 0, ':/images/' + teamImages[r.away] + '-1bit-40.png');
             }
 
