@@ -24,6 +24,7 @@ DEFINES += QT_VERSION_5
 
 SOURCES += src/harbour-toomiich.cpp \
     src/diskcache.cpp \
+    src/diskcacheimageprovider.cpp \
     src/oledify.cpp \
     src/persistenttimer.cpp \
     src/tzdateparser.cpp \
@@ -66,6 +67,7 @@ RESOURCES += \
 
 HEADERS += \
     src/diskcache.h \
+    src/diskcacheimageprovider.h \
     src/oledify.h \
     src/persistenttimer.h \
     src/tzdateparser.h \
