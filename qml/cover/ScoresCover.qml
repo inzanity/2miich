@@ -159,6 +159,7 @@ CoverBackground {
                 visible: isActive
                 anchors.horizontalCenter: separator.horizontalCenter
                 anchors.top: homeScore.bottom
+                anchors.topMargin: -12
             }
         }
     }
