@@ -30,18 +30,19 @@ Page {
     property int detailsIndex: -1
     property alias date: games.date
 
-    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; pageStack.pushExtra(schedule, { mainPage: page }); }
+    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; }
 
     onDetailsIndexChanged: {
         oledify.redraw(games.model);
         if (detailsIndex != -1) {
             if (status === PageStatus.Active) {
-                pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { details: games.model.get(detailsIndex) });
+                pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { parent: page, details: games.model.get(detailsIndex) });
             } else {
-                pageStack.replaceAbove(page, Qt.resolvedUrl("DetailsPage.qml"), { details: games.model.get(detailsIndex) });
+                pageStack.replaceAbove(page, Qt.resolvedUrl("DetailsPage.qml"), { parent: page, details: games.model.get(detailsIndex) });
             }
         } else {
             pageStack.pop(page);
+            pageStack.pushExtra(schedule, { parent: page, mainPage: page });
         }
     }
     Component {

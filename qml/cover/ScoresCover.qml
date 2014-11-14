@@ -81,7 +81,7 @@ CoverBackground {
                 height: bigHomeLogo.height
                 width: height
                 anchors.right: bigHomeLogo.left
-                visible: started && !finished && !isActive
+                visible: !!(started && !finished && !isActive)
                 property real p: played.split(':').reduce(function (a, b) { return a * 60 + b * 1 })
                 value: (((p - 1) % 1200) + 1) / ((tournament === 'rs' && p > 3600) ? 300.0 : 1200.0)
                 inAlternateCycle: !((Math.floor(Math.max(p - 1, 0) / 1200) + 1) % 2)
