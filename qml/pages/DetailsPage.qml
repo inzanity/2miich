@@ -54,7 +54,7 @@ Page {
 
     Image {
         id: bgHome
-        source: 'http://liiga.fi' + details.homelogo
+        source: 'image://cache/http://liiga.fi' + details.homelogo
         anchors.right: parent.left
         anchors.rightMargin: -parent.width / 2
         anchors.verticalCenter: parent.verticalCenter
@@ -68,7 +68,7 @@ Page {
 
     Image {
         id: bgAway
-        source: 'http://liiga.fi' + details.awaylogo
+        source: 'image://cache/http://liiga.fi' + details.awaylogo
         anchors.left: parent.right
         anchors.leftMargin: -parent.width / 2
         anchors.verticalCenter: parent.verticalCenter
@@ -93,7 +93,7 @@ Page {
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Image {
-                    source: 'http://liiga.fi' + details.homelogo
+                    source: 'image://cache/http://liiga.fi' + details.homelogo
                 }
 
                 Column {
@@ -127,7 +127,7 @@ Page {
                 }
 
                 Image {
-                    source: 'http://liiga.fi' + details.awaylogo
+                    source: 'image://cache/http://liiga.fi' + details.awaylogo
                 }
             }
         }

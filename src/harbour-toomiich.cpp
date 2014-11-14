@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <QtQml>
+#include <QGuiApplication>
+#include <QQuickView>
 #include <sailfishapp.h>
 
 #include "diskcache.h"
@@ -23,6 +25,7 @@
 #include "persistenttimer.h"
 #include "declarativedbusadaptor.h"
 #include "declarativedbusinterface.h"
+#include "diskcacheimageprovider.h"
 #include "tzdateparser.h"
 
 int main(int argc, char *argv[])
@@ -34,6 +37,17 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 1, 0, "DBusAdaptor");
     qmlRegisterType<TzDateParser, 1>("harbour.toomiich.TzDateParser", 1, 0, "TzDateParser");
 
-    return SailfishApp::main(argc, argv);
+    int result = 0;
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+    QQuickView *view = SailfishApp::createView();
+    view->engine()->addImageProvider(QLatin1String("cache"),
+                                     new DiskCacheImageProvider(QQuickImageProvider::ForceAsynchronousImageLoading));
+    QString qml = QString("qml/harbour-toomiich.qml");
+    view->setSource(SailfishApp::pathTo(qml));
+    view->show();
+    result = app->exec();
+    delete view;
+    delete app;
+    return result;
 }
 

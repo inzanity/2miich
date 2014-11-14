@@ -60,7 +60,7 @@
 <context>
     <name>ScoresCover</name>
     <message>
-        <location filename="../qml/cover/ScoresCover.qml" line="96"/>
+        <location filename="../qml/cover/ScoresCover.qml" line="94"/>
         <source>OT</source>
         <translation>JA</translation>
     </message>
