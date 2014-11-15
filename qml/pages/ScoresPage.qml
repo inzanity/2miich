@@ -30,7 +30,12 @@ Page {
     property int detailsIndex: -1
     property alias date: games.date
 
-    onStatusChanged: if (status === PageStatus.Active) { detailsIndex = -1; }
+    onStatusChanged: {
+        if (status === PageStatus.Active) {
+            detailsIndex = -1;
+            pageStack.pushExtra(schedule, { parent: page, mainPage: page });
+        }
+    }
 
     onDetailsIndexChanged: {
         oledify.redraw(games.model);
@@ -42,7 +47,6 @@ Page {
             }
         } else {
             pageStack.pop(page);
-            pageStack.pushExtra(schedule, { parent: page, mainPage: page });
         }
     }
     Component {
