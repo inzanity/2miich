@@ -26,8 +26,8 @@ Rectangle {
     color: 'transparent'
 
     Rectangle {
-        property variant widths: [25, 28, 30, 33, 35, 30, 28, 42, 31, 36, 37, 27, 32, 34, 37]
-        property variant offsets: [0, 36, 74, 113, 153, 200, 240, 276, 327, 367, 414, 462, 501, 542, 580]
+        property variant widths: [25, 28, 30, 33, 35, 30, 28, 42, 31, 36, 37, 27, 32, 34, 37, 32]
+        property variant offsets: [0, 36, 74, 113, 153, 200, 240, 276, 327, 367, 414, 462, 501, 542, 580, 621]
 
         property variant teams: {
             'Blues': 0,
@@ -42,6 +42,8 @@ Rectangle {
                     'Kalpa': 6,
                     'KalPa': 6,
                     'KAL': 6,
+		    'KooKoo': 15,
+		    'KOO': 15,
                     'Kärpät': 7,
                     'Karpat': 7,
                     'KÄR': 7,

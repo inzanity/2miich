@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
-<context>
-    <name>2miich</name>
-    <message>
-        <source>2miich</source>
-        <translation type="obsolete">2miich</translation>
-    </message>
-</context>
+<TS version="2.1" language="fi_FI">
 <context>
     <name>DetailsPage</name>
     <message>
@@ -68,27 +61,27 @@
 <context>
     <name>ScoresPage</name>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="200"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="201"/>
         <source>No games for the day</source>
         <translation>Ei otteluita päivälle</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="206"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="207"/>
         <source>Statistics</source>
         <translation>Tilastot</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="211"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="212"/>
         <source>Go to today</source>
         <translation>Näytä tämä päivä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="215"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="216"/>
         <source>Previous: </source>
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="223"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="224"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>
@@ -154,13 +147,6 @@
         <location filename="../qml/pages/StatisticsPage.qml" line="285"/>
         <source>Goal leaders</source>
         <translation>Maalipörssi</translation>
-    </message>
-</context>
-<context>
-    <name>harbour-2miich</name>
-    <message>
-        <source>2miich</source>
-        <translation type="obsolete">2miich</translation>
     </message>
 </context>
 <context>

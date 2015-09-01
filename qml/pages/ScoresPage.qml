@@ -72,6 +72,7 @@ Page {
                 'Ilves': 'Ilves',
                 'JYP': 'JYP',
                 'KalPa': 'KalPa',
+                'KooKoo': 'KooKoo',
                 'Kärpät': 'Karpat',
                 'Lukko': 'Lukko',
                 'Pelicans': 'Pelicans',
