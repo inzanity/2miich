@@ -228,7 +228,7 @@ Page {
 
         onDateChanged: {
             cache = {};
-            games.model.clear();
+            games.model.markup = '';
             refresh();
         }
 
@@ -257,10 +257,10 @@ Page {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function (e) {
                 if (xhr.readyState == 4) {
-                    games.model.json = xhr.responseText;
+                    games.model.markup = '<html><body>' + xhr.responseText;
                 }
             }
-            xhr.open('GET', 'http://liiga.fi/media/game-tracking/' + date.getFullYear().toString() + '-' + ('0' + (date.getMonth() + 1).toString()).substr(-2) + '-' +  ('0' + date.getDate().toString()).substr(-2) + '.json');
+            xhr.open('GET', 'http://liiga.fi/game-tracking/' + date.getFullYear().toString() + '/' + ('0' + (date.getMonth() + 1).toString()).substr(-2) + '/' +  ('0' + date.getDate().toString()).substr(-2) + '/0');
             xhr.send();
         }
 

@@ -27,6 +27,8 @@
 #include "declarativedbusinterface.h"
 #include "diskcacheimageprovider.h"
 #include "tzdateparser.h"
+#include "htmllistmodel.h"
+#include "htmlrole.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +38,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeclarativeDBusInterface, 1>("harbour.toomiich.DBusInterface", 1, 0, "DBusInterface");
     qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 1, 0, "DBusAdaptor");
     qmlRegisterType<TzDateParser, 1>("harbour.toomiich.TzDateParser", 1, 0, "TzDateParser");
+    qmlRegisterType<HtmlListModel, 1>("harbour.toomiich.HtmlListModel", 1, 0, "HtmlListModel");
+    qmlRegisterType<HtmlRole, 1>("harbour.toomiich.HtmlListModel", 1, 0, "HtmlRole");
 
     int result = 0;
     QGuiApplication *app = SailfishApp::application(argc, argv);

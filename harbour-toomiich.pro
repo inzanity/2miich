@@ -14,6 +14,7 @@ TARGET = harbour-toomiich
 
 CONFIG += sailfishapp
 QT += network dbus
+PKGCONFIG += libxml-2.0
 
 INCLUDEPATH += 3rdparty/libiphb/src \
     3rdparty/libdsme/include \
@@ -28,6 +29,8 @@ SOURCES += src/harbour-toomiich.cpp \
     src/oledify.cpp \
     src/persistenttimer.cpp \
     src/tzdateparser.cpp \
+    src/htmllistmodel.cpp \
+    src/htmlrole.cpp \
     3rdparty/libiphb/src/libiphb.c \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.cpp \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.cpp
@@ -71,6 +74,8 @@ HEADERS += \
     src/oledify.h \
     src/persistenttimer.h \
     src/tzdateparser.h \
+    src/htmllistmodel.h \
+    src/htmlrole.h \
     3rdparty/libiphb/src/libiphb.h \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.h \
     3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.h

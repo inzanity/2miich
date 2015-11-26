@@ -7,7 +7,7 @@
 
 Name:       harbour-toomiich
 Summary:    2Miich - liigaa
-Version:    0.1.4
+Version:    0.1.5
 Release:    1
 Group:      Applications/Internet
 License:    GPL
@@ -19,6 +19,7 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  desktop-file-utils
 
 

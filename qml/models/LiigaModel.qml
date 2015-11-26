@@ -17,20 +17,72 @@
  */
 
 import QtQuick 2.0
+import harbour.toomiich.HtmlListModel 1.0
 import harbour.toomiich.TzDateParser 1.0
 
-ListModel {
+HtmlListModel {
+    id: root
     property string source
-    property string json
-    property variant _object
     property int status: 0
-    property variant date: _object ? new Date(_object.dates.current.isoformat) : undefined
-    property variant next: _object ? new Date(_object.dates.next.isoformat) : undefined
-    property variant prev: _object ? new Date(_object.dates.prev.isoformat) : undefined
+    property variant date: datesModel.ready && datesModel.count ? new Date(datesModel.get(0).current) : undefined
+    property variant next: datesModel.ready && datesModel.count ? new Date(datesModel.get(0).next) : undefined
+    property variant prev: datesModel.ready && datesModel.count ? new Date(datesModel.get(0).prev) : undefined
+
+    property var teamFix: {
+                'Assat': 'Ässät',
+                'Hpk': 'HPK',
+                'Hifk': 'HIFK',
+                'Kookoo': 'KooKoo',
+                'Jyp': 'JYP',
+                'Saipa': 'SaiPa',
+                'Tps': 'TPS',
+                'Kalpa': 'KalPa',
+                'Karpat': 'Kärpät'
+    }
+    function teamFromLogo(logo) {
+        var tmp;
+
+        if ((tmp = logo.match(/Logot_[0-9]+_([^_.]+)/))) {
+            logo = tmp[1];
+        } else if ((tmp = logo.match(/\/([^-]+)[^\/]*$/))) {
+            logo = tmp[1];
+        }
+        logo = logo.replace(/^(.)(.*)$/, function (full, first, rest) {
+            return first.toUpperCase() + rest.toLowerCase();
+        });
+
+        if (teamFix.hasOwnProperty(logo))
+            return teamFix[logo];
+        return logo;
+    }
+
+    property HtmlListModel datesModel: HtmlListModel {
+        markup: root.markup
+        query: '/html/body/div[@class = "dates"]'
+        HtmlRole {
+            name: 'current'
+            query: 'div[@class = "current"]/@data-date'
+        }
+        HtmlRole {
+            name: 'prev'
+            query: 'div[@class = "prev"]/@data-date'
+        }
+        HtmlRole {
+            name: 'next'
+            query: 'div[@class = "next"]/@data-date'
+        }
+    }
+
+    query: '/html/body/div[@class="games-container"]/div/div[@class="game"]'
 
     property variant resource: TzDateParser {
         id: dateParser
         tz: 'Europe/Helsinki'
+    }
+
+    onReadyChanged: {
+        if (ready)
+            status = 4
     }
 
     onSourceChanged: {
@@ -39,45 +91,116 @@ ListModel {
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE)
-                json = xhr.responseText;
+                markup = '<html><body>' + xhr.responseText;
         }
         xhr.open('GET', source);
         xhr.send();
-        status = 1
+        status = 3
     }
 
-    onJsonChanged: {
-        status = 2
-        try {
-            _object = JSON.parse(json);
-
-            for (var i = 0; i < _object.games.length; i++) {
-
-                var g = _object.games[i];
-                set(i, {
-                        'home': g.home.name,
-                        'away': g.away.name,
-                        'homelogo': g.home.logo,
-                        'awaylogo': g.away.logo,
-                        'tournament': (g.link.match(/\/runkosarja\//) ? 'rs' : 'po'),
-                        'game': g.home.name + ' - ' + g.away.name,
-                        'homescore': (g.home.goals !== '-' ? '' + g.home.goals : ''),
-                        'awayscore': (g.away.goals !== '-' ? '' + g.away.goals : ''),
-                        'startTime': (g.started ? undefined : dateParser.parseDateTime(g.status, "'Ottelu alkaa 'd.M.yyyy' klo 'hh:mm")),
-                        'started': g.started,
-                        'finished': g.finished,
-                        'report': g.report,
-                        'played': (g.started ? (g.status.match(/([0-9]+:[0-9]+)/) || [undefined, ''])[1] : '00:00'),
-                        'overtime': (g.finished ? (g.status.match(/\(([^)]+)\)/) || [undefined, ''])[1] : ''),
-                        'detail': (g.started ? g['latest-event'].time + ' ' + g['latest-event'].text : '')
-                    });
-            }
-            status = 3
-        } catch (e) {
-            if (count == 0)
-                _object = undefined;
-            status = 4;
+    HtmlRole {
+        name: 'homelogo'
+        query: 'a/div/div[@class="home"]/div/div/img/@src'
+    }
+    HtmlRole {
+        name: 'home'
+        query: 'a/div/div[@class="home"]/div/div/img/@src'
+        function process(logo) {
+            return root.teamFromLogo(logo);
         }
+    }
+    HtmlRole {
+        name: 'homescore'
+        query: 'a/div/div[@class="home"]/div/div[@class="goals"]'
 
+        function process(score) {
+            if (score === '-')
+                return '';
+            return score;
+        }
+    }
+    HtmlRole {
+        name: 'awaylogo'
+        query: 'a/div/div[@class="away"]/div/div/img/@src'
+    }
+    HtmlRole {
+        name: 'away'
+        query: 'a/div/div[@class="away"]/div/div/img/@src'
+        function process(logo) {
+            return root.teamFromLogo(logo);
+        }
+    }
+    HtmlRole {
+        name: 'tournament'
+        query: 'a[@class="game_link"]/@href'
+
+        function process(link) {
+            if (link.match(/\/runkosarja\//))
+                return 'rs';
+            return 'po';
+        }
+    }
+    HtmlRole {
+        name: 'awayscore'
+        query: 'a/div/div[@class="away"]/div/div[@class="goals"]'
+
+        function process(score) {
+            if (score === '-')
+                return '';
+            return score;
+        }
+    }
+    HtmlRole {
+        name: 'startTime'
+        query: 'concat(/html/body/div[@class = "dates"]/div[@class = "current"]/@data-date, " ", div[@class="status-short"])'
+
+        function process(text) {
+            if (!text.match(/Ottelu alkaa/))
+                return undefined;
+            return dateParser.parseDateTime(text, "yyyy-M-d' Ottelu alkaa klo 'hh:mm")
+        }
+    }
+    HtmlRole {
+        name: 'started'
+        query: 'div[@class="status-short"]'
+
+        function process(text) {
+            return !text.match(/Ottelu alkaa/);
+        }
+    }
+    HtmlRole {
+        name: 'finished'
+        query: 'div[@class="status-short"]'
+
+        function process(text) {
+            return !!text.match(/Ottelu päättynyt/);
+        }
+    }
+    HtmlRole {
+        name: 'report'
+        query: 'div/div/a[@class="report_link"]/@href'
+    }
+    HtmlRole {
+        name: 'played'
+        query: 'div[@class="status-short"]'
+
+        function process(text) {
+            if (text.match(/Ottelu alkaa/))
+                return '00:00';
+            return (text.match(/([0-9]+:[0-9]+)/ || [undefined, '']))[1];
+        }
+    }
+
+    HtmlRole {
+        name: 'overtime'
+        query: 'div[@class="status-short"]'
+
+        function process(text) {
+            return (text.match(/Ottelu päättynyt \(([^)]+)\)/) || [undefined, ''])[1];
+        }
+    }
+    HtmlRole {
+        name: 'detail'
+        query: 'normalize-space(div[@class="latest-event"])'
     }
 }
