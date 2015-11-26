@@ -260,7 +260,7 @@ Page {
                     games.model.markup = '<html><body>' + xhr.responseText;
                 }
             }
-            xhr.open('GET', 'http://liiga.fi/game-tracking/' + date.getFullYear().toString() + '/' + ('0' + (date.getMonth() + 1).toString()).substr(-2) + '/' +  ('0' + date.getDate().toString()).substr(-2) + '/0');
+            xhr.open('GET', 'http://liiga.fi/game-tracking/' + date.getFullYear().toString() + '/' + ('0' + (date.getMonth() + 1).toString()).substr(-2) + '/' +  ('0' + date.getDate().toString()).substr(-2) + '/0?' + new Date().getTime());
             xhr.send();
         }
 

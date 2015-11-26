@@ -12,6 +12,8 @@
 # The name of your application
 TARGET = harbour-toomiich
 
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
+
 CONFIG += sailfishapp
 QT += network dbus
 PKGCONFIG += libxml-2.0
