@@ -28,6 +28,12 @@ HtmlListModel {
     property variant next: datesModel.ready && datesModel.count ? new Date(datesModel.get(0).next) : undefined
     property variant prev: datesModel.ready && datesModel.count ? new Date(datesModel.get(0).prev) : undefined
 
+    property Timer delayedReady: Timer {
+        interval: 0
+        repeat: false
+        onTriggered: root.status = 3
+    }
+
     property var teamFix: {
                 'Assat': 'Ässät',
                 'Hpk': 'HPK',
@@ -58,6 +64,12 @@ HtmlListModel {
 
     property HtmlListModel datesModel: HtmlListModel {
         markup: root.markup
+
+        onReadyChanged: {
+            if (ready && root.ready)
+                root.delayedReady.start()
+        }
+
         query: '/html/body/div[@class = "dates"]'
         HtmlRole {
             name: 'current'
@@ -81,12 +93,15 @@ HtmlListModel {
     }
 
     onReadyChanged: {
-        if (ready)
-            status = 4
+        if (ready && datesModel.ready)
+            delayedReady.start()
+    }
+
+    onMarkupChanged: {
+        status = 1
     }
 
     onSourceChanged: {
-        clear();
         status = 0
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function() {
@@ -95,7 +110,6 @@ HtmlListModel {
         }
         xhr.open('GET', source);
         xhr.send();
-        status = 3
     }
 
     HtmlRole {
