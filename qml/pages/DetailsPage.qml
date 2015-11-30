@@ -34,11 +34,17 @@ Page {
     function refresh() {
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4)
-                listView.model.xml = '<data>' + xhr.responseText.replace(/&ndash;/g, '-').replace(/&nbsp;/g, ' ').replace(/(<img[^>]*[^\/>])(>)/g, '$1/$2').replace(/<br>/g, '<br/>') + '</data>';
+            if (xhr.readyState === 4) {
+                var xml = '<data>' + xhr.responseText.replace(/&ndash;/g, '-').replace(/&nbsp;/g, ' ').replace(/(<img[^>]*[^\/>])(>)/g, '$1/$2').replace(/<br>/g, '<br/>') + '</data>';
+                listView.model.xml = xml;
+                shotsModel.xml = xml;
+            }
         }
         xhr.open('GET', 'http://liiga.fi' + source + 'ajax');
         xhr.send();
+    }
+    ShotsModel {
+        id: shotsModel
     }
 
     function formatOrdinal(n) {
@@ -206,6 +212,30 @@ Page {
                 }
             }
 
+        }
+        footer: Item {
+            width: parent.width
+            height: rink.height
+            Image {
+                id: rink
+                source: 'qrc:///images/rink.svg'
+                sourceSize.width: parent.width
+            }
+            MonochromeEffect {
+                sourceItem: rink
+            }
+            Repeater {
+                model: shotsModel
+
+                delegate: Image {
+                    source: 'image://cache/http://liiga.fi' + details[(cssclass.indexOf('home') != -1 ? 'homelogo' : 'awaylogo')]
+                    width: rink.width * 20 / 973
+                    height: width
+                    opacity: cssclass.indexOf('goal') !== -1 ? 1.0 : 0.5
+                    y: style.match(/top: ([0-9.]+)%/)[1] * rink.height / 100
+                    x: style.match(/left: ([0-9.]+)%/)[1] * rink.width / 100
+                }
+            }
         }
 
         VerticalScrollDecorator {}
