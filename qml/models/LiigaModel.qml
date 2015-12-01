@@ -85,7 +85,7 @@ HtmlListModel {
         }
     }
 
-    query: '/html/body/div[@class="games-container"]/div/div[@class="game"]'
+    query: '/html/body/div[contains(@class, "games-container")]/div/div[@class="game"]'
 
     property variant resource: TzDateParser {
         id: dateParser
