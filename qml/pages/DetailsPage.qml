@@ -26,7 +26,7 @@ import '../models'
 
 Page {
     id: page
-    property string source: details.report
+    property string source: 'http://liiga.fi' + details.report + 'ajax'
     property variant details
 
     onSourceChanged: refresh();
@@ -40,7 +40,7 @@ Page {
                 shotsModel.xml = xml;
             }
         }
-        xhr.open('GET', 'http://liiga.fi' + source + 'ajax');
+        xhr.open('GET', source);
         xhr.send();
     }
     ShotsModel {
