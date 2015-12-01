@@ -40,10 +40,14 @@ Page {
     onDetailsIndexChanged: {
         oledify.redraw(games.model);
         if (detailsIndex != -1) {
+            var page = "DetailsPage.qml";
+            var gameInfo = games.model.get(detailsIndex);
+            if (!gameInfo.started)
+                page = "RosterPage.qml";
             if (status === PageStatus.Active) {
-                pageStack.push(Qt.resolvedUrl("DetailsPage.qml"), { parent: page, details: games.model.get(detailsIndex) });
+                pageStack.push(Qt.resolvedUrl(page), { parent: page, details: gameInfo });
             } else {
-                pageStack.replaceAbove(page, Qt.resolvedUrl("DetailsPage.qml"), { parent: page, details: games.model.get(detailsIndex) });
+                pageStack.replaceAbove(page, Qt.resolvedUrl(page), { parent: page, details: gameInfo });
             }
         } else {
             pageStack.pop(page);

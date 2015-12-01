@@ -195,6 +195,11 @@ HtmlListModel {
         query: 'div/div/a[@class="report_link"]/@href'
     }
     HtmlRole {
+        name: 'rosters'
+        query: 'div/div/a[@class="rosters_link"]/@href'
+    }
+
+    HtmlRole {
         name: 'played'
         query: 'div[@class="status-short"]'
 

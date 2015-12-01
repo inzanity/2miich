@@ -61,7 +61,9 @@ OTHER_FILES += \
     qml/models/LeaderModel.qml \
     qml/models/PlayerListModel.qml \
     qml/widgets/Heading.qml \
-    qml/models/ShotsModel.qml
+    qml/models/ShotsModel.qml \
+    qml/pages/RosterPage.qml \
+    qml/models/RosterModel.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

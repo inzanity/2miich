@@ -90,6 +90,13 @@ Page {
     SilicaListView {
         id: listView
 
+        PullDownMenu {
+            id: pullDown
+            MenuItem {
+                text: qsTr('Rosters')
+                onClicked: pageStack.push('RosterPage.qml', { 'details': details })
+            }
+        }
         header: Column {
             anchors.left: parent.left
             anchors.right: parent.right
