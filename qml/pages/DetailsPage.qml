@@ -167,6 +167,8 @@ Page {
             property variant eventDetails: {
                 var cln = event.replace(/#[0-9]+\s*/g, '');
                 var r;
+                if ((r = cln.match(/^(Maalivah(?:ti (?:ulos|sisään)|din vaihto)): ([^,]+?(?: ulos)?)(?:, (.*))?$/)))
+                    return { text: r[3] || r[2], detail: r[1] + (r[3] ? ': ' + r[2] : '') };
                 if ((r = cln.match(/^(.* [0-9]+-[0-9]+)(?: (\([^)]+\)))?(.*)$/)))
                     return { type: 'goal', text: r[1] + r[3], detail: r[2] || '' };
                 if ((r = cln.match(/^(.*) (aikalisä)/)))
