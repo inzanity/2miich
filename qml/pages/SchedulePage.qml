@@ -44,8 +44,8 @@ Page {
                     if (uri === src)
                         xmlCache.setFile(src, xhr.responseText);
                     var begin = xhr.responseText.indexOf("<table");
-                    var end = xhr.responseText.indexOf('</table>');
-                    listView.model.xml = xhr.responseText.substring(begin, end + 8).replace(/&mdash;/g, '-');
+                    var end = xhr.responseText.lastIndexOf('</table>');
+                    listView.model.markup = '<html><body>' + xhr.responseText.substring(begin, end + 8) + '</body></html>';
                 }
             }
             xhr.open("GET", uri);
@@ -82,8 +82,8 @@ Page {
         }
 
         model: ScheduleModel {
-            onStatusChanged: {
-                if (status == XmlListModel.Ready) {
+            onReadyChanged: {
+                if (ready) {
                     var i;
 
                     for (i = 0; i < count; i++) {

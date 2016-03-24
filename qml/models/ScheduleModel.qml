@@ -17,33 +17,33 @@
  */
 
 import QtQuick 2.0
-import QtQuick.XmlListModel 2.0
+import harbour.toomiich.HtmlListModel 1.0
 
-XmlListModel {
-    query: '/table/tbody/tr'
+HtmlListModel {
+    query: '/html/body/table/tbody/tr[@data-time]'
 
-    XmlRole {
+    HtmlRole {
         name: 'date'
-        query: 'td[2][string() != ""]/string()'
+        query: 'td[2][string() != ""]'
     }
-    XmlRole {
+    HtmlRole {
         name: 'time'
-        query: 'td[3]/string()'
+        query: 'td[3]'
     }
-    XmlRole {
+    HtmlRole {
         name: 'home'
         query: 'normalize-space(substring-before(td[4], " - "))'
     }
-    XmlRole {
+    HtmlRole {
         name: 'away'
         query: 'normalize-space(substring-after(td[4], " - "))'
     }
-    XmlRole {
+    HtmlRole {
         name: 'result'
-        query: 'td[6]/string()'
+        query: 'td[6]'
     }
-    XmlRole {
+    HtmlRole {
         name: 'overtime'
-        query: 'td[7]/string()'
+        query: 'td[7]'
     }
 }
