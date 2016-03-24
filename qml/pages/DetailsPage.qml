@@ -35,8 +35,8 @@ Page {
         var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
-                var xml = '<data>' + xhr.responseText.replace(/&ndash;/g, '-').replace(/&nbsp;/g, ' ').replace(/(<img[^>]*[^\/>])(>)/g, '$1/$2').replace(/<br>/g, '<br/>') + '</data>';
-                listView.model.xml = xml;
+                var xml = '<html>' + xhr.responseText.replace(/&ndash;/g, '-').replace(/&nbsp;/g, ' ').replace(/(<img[^>]*[^\/>])(>)/g, '$1/$2').replace(/<br>/g, '<br/>') + '</html>';
+                listView.model.markup = xml;
                 shotsModel.xml = xml;
             }
         }
@@ -156,9 +156,10 @@ Page {
 
             Label {
                 id: periodLbl
+                property var sectData: JSON.parse(section)
                 anchors.fill: parent
                 anchors.margins: Theme.paddingMedium
-                text: (page.details.tournament === 'rs' && section > 3 ? qsTr("Overtime") : qsTr("%1 period").arg(formatOrdinal(section)));
+                text: sectData.hasOwnProperty('num') ? qsTr(sectData.text).arg(formatOrdinal(sectData.num)) : qsTr(sectData.text)
             }
         }
 
@@ -179,6 +180,8 @@ Page {
                     return { type: 'penalty', text: r[1], detail: r[2] };
                 if ((r = cln.match(/^(.*?) ([a-zåäö][a-zåäö ]+)$/)))
                     return { type: 'penalty', text: r[1], detail: r[2] };
+                if ((r = cln.match(/^(.*? \d+(?:\+\d+)*=\d+)\s*(.*?)$/)))
+                    return { text: r[1], detail: r[2] };
                 return { text: cln, detail: '' };
             }
 

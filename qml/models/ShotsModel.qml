@@ -20,7 +20,7 @@ import QtQuick 2.0
 import QtQuick.XmlListModel 2.0
 
 XmlListModel {
-    query: '/data//div[@class = "shooting-map-container"]/div[contains(@class, "shot ")]'
+    query: '/html//div[@class = "shooting-map-container"]/div[contains(@class, "shot ")]'
 
     XmlRole {
         name: 'style'

@@ -17,25 +17,49 @@
  */
 
 import QtQuick 2.0
-import QtQuick.XmlListModel 2.0
+import harbour.toomiich.HtmlListModel 1.0
 
-XmlListModel {
-	query: '/data//table/tr[(@class = "odd" or @class = "even") and contains(td[@class = "time"], ":")]'
+HtmlListModel {
+	query: '/html//table/tr[(@class = "odd" or @class = "even") and contains(td[@class = "time"], ":") or (@class != "period" and preceding-sibling::tr[@class = "period"][1]/td = "Maalivahdit")]/td[not(@class = "time") and normalize-space(.) != ""]'
 
-	XmlRole {
+	HtmlRole {
 		name: 'time'
-		query: 'normalize-space(td[@class = "time"]/string())'
+		query: 'normalize-space(../td[@class = "time"])'
+
+		function process(text) {
+			if (text === 'Torjunnat')
+				return '';
+			return text;
+		}
 	}
-	XmlRole {
+	HtmlRole {
 		name: 'event'
-		query: 'concat(normalize-space(td[1]/string()), normalize-space(td[3]/string()))'
+		query: 'normalize-space(.)'
 	}
-	XmlRole {
+	HtmlRole {
 		name: 'team'
-		query: 'td[(@class = "home" or @class = "away") and boolean(./string())][1]/@class/string()'
+		query: '@class'
 	}
-    XmlRole {
+    HtmlRole {
         name: 'period'
-        query: 'floor((number(substring-before(td[@class = "time"], ":")) * 60 + number(substring-after(td[@class = "time"], ":")) - 1) div 1200) + 1'
+        query: '../preceding-sibling::tr[@class = "period"][1]/td[1]'
+
+        function process(text) {
+            var rv = {};
+            if (text === 'Maalivahdit') {
+                rv.text = QT_TR_NOOP('Goalies');
+            } else if (text === 'Jatkoaika') {
+                rv.text = QT_TR_NOOP('Overtime');
+            } else {
+                var m = text.match(/^(\d+)\. (jatko)?erä/);
+                if (m[2]) {
+                    rv.text = QT_TR_NOOP("%1 overtime");
+                } else {
+                    rv.text = QT_TR_NOOP("%1 period");
+                }
+                rv.num = m[1];
+            }
+            return JSON.stringify(rv);
+        }
     }
 }
