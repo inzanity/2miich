@@ -45,31 +45,54 @@ Page {
         id: rosterModel
     }
 
-    Component {
-        id: bgComponent
-        Item {
-            property string place
-            anchors.fill: parent
-            Image {
-                id: bgImg
-                source: 'image://cache/http://liiga.fi' + details[place + 'logo']
-                anchors.right: parent.left
-                anchors.rightMargin: -width / 2
-            }
-            MonochromeEffect {
-                sourceItem: bgImg
-                opacity: 0.3
-                scale: page.height * 1.5 / sourceItem.height
-                transformOrigin: Item.Top
-            }
-        }
-    }
     SilicaListView {
         anchors.fill: parent
         model: rosterModel
 
-        header: PageHeader {
-            title: qsTr('Rosters')
+        header: Column {
+	    anchors.left: parent.left
+	    anchors.right: parent.right
+            PageHeader {
+                anchors.left: parent.left
+		anchors.right: parent.right
+                title: qsTr('Rosters')
+            }
+            Item {
+                anchors.left: parent.left
+		anchors.right: parent.right
+                height: 0
+                Image {
+                    id: bgHome
+                    source: 'image://cache/http://liiga.fi' + details['homelogo']
+                    anchors.right: parent.left
+                    anchors.rightMargin: -width / 2
+                }
+                MonochromeEffect {
+                    sourceItem: bgHome
+                    opacity: 0.3
+                    scale: page.height * 1.5 / sourceItem.height
+                    transformOrigin: Item.Top
+                }
+            }
+        }
+
+        footer: Item {
+            anchors.left: parent.left
+            width: 0
+            height: 0
+            Image {
+                id: bgAway
+                source: 'image://cache/http://liiga.fi' + details['awaylogo']
+                anchors.right: parent.left
+                anchors.rightMargin: -width / 2
+		anchors.bottom: parent.bottom
+            }
+            MonochromeEffect {
+                sourceItem: bgAway
+                opacity: 0.3
+                scale: page.height * 1.5 / sourceItem.height
+                transformOrigin: Item.Bottom
+            }
         }
 
         delegate: BackgroundItem {
@@ -97,11 +120,6 @@ Page {
             anchors.right: parent.right
             height: sectItem.height + 2 * Theme.paddingMedium
 
-            Component.onCompleted: {
-                if (sectItem.sectData.line === '1. kenttä')
-                    bgComponent.createObject(this, { place: (sectItem.sectData.team === details.home ? 'home' : 'away') })
-            }
-
             Row {
                 anchors.top: parent.top
                 anchors.topMargin: Theme.paddingMedium
@@ -113,7 +131,6 @@ Page {
                 property var sectData: JSON.parse(section)
 
                 Label {
-
                     text: sectItem.sectData.team + ' '
                     visible: sectItem.sectData.line === '1. kenttä'
                 }
