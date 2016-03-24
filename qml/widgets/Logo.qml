@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import Sailfish.Silica 1.0
 
 Rectangle {
     property string team: 'Tappara'
@@ -63,7 +64,7 @@ Rectangle {
                     'Sport': 14,
                     'SPO': 14
         }
-        property int teamIndex: teams[team]
+        property variant teamIndex: teams[team]
         anchors.centerIn: parent
         color: 'transparent'
         width: widths[teamIndex]
@@ -71,10 +72,17 @@ Rectangle {
         clip: true
         Image {
             source: 'qrc:///images/teams.png'
+            visible: parent.teamIndex !== undefined
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.leftMargin: -parent.offsets[parent.teamIndex]
             anchors.topMargin: active ? -41 : 0
+        }
+        Label {
+            text: team
+            visible: parent.teamIndex === undefined
+            anchors.centerIn: parent
+            color: Theme.primaryColor
         }
     }
 }
