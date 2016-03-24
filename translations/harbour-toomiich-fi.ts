@@ -28,16 +28,6 @@
         <source>Rosters</source>
         <translation>Kokoonpanot</translation>
     </message>
-    <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="161"/>
-        <source>%1 period</source>
-        <translation>%1 erä</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/DetailsPage.qml" line="161"/>
-        <source>Overtime</source>
-        <translation>jatkoaika</translation>
-    </message>
 </context>
 <context>
     <name>DummyCover</name>
@@ -48,9 +38,32 @@
     </message>
 </context>
 <context>
+    <name>GameModel</name>
+    <message>
+        <location filename="../qml/models/GameModel.qml" line="50"/>
+        <source>Goalies</source>
+        <translation>Maalivahdit</translation>
+    </message>
+    <message>
+        <location filename="../qml/models/GameModel.qml" line="52"/>
+        <source>Overtime</source>
+        <translation>Jatkoaika</translation>
+    </message>
+    <message>
+        <location filename="../qml/models/GameModel.qml" line="56"/>
+        <source>%1 overtime</source>
+        <translation>%1 jatkoerä</translation>
+    </message>
+    <message>
+        <location filename="../qml/models/GameModel.qml" line="58"/>
+        <source>%1 period</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RosterPage</name>
     <message>
-        <location filename="../qml/pages/RosterPage.qml" line="72"/>
+        <location filename="../qml/pages/RosterPage.qml" line="58"/>
         <source>Rosters</source>
         <translation>Kokoonpanot</translation>
     </message>
