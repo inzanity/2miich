@@ -8,7 +8,7 @@
 Name:       harbour-toomiich
 Summary:    2Miich - liigaa
 Version:    0.1.8
-Release:    0
+Release:    1
 Group:      Applications/Internet
 License:    GPL
 URL:        http://inz.fi/2miich/
