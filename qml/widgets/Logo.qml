@@ -27,8 +27,8 @@ Rectangle {
     color: 'transparent'
 
     Rectangle {
-        property variant widths: [25, 28, 30, 33, 35, 30, 28, 42, 31, 36, 37, 27, 32, 34, 37, 32]
-        property variant offsets: [0, 36, 74, 113, 153, 200, 240, 276, 327, 367, 414, 462, 501, 542, 580, 621]
+        property variant widths: [25, 28, 30, 33, 35, 30, 28, 42, 31, 40, 37, 27, 32, 34, 37, 32, 32]
+        property variant offsets: [0, 36, 74, 113, 153, 200, 240, 276, 327, 365, 414, 462, 501, 542, 580, 621, 667]
 
         property variant teams: {
             'Blues': 0,
@@ -39,6 +39,8 @@ Rectangle {
                     'Ilves': 3,
                     'ILV': 3,
                     'Jokerit': 4,
+		    'Jukurit': 16,
+		    'JUK': 16,
                     'JYP': 5,
                     'Kalpa': 6,
                     'KalPa': 6,
