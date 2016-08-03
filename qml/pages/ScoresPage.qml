@@ -75,6 +75,7 @@ Page {
                 'HPK': 'HPK',
                 'Ilves': 'Ilves',
                 'JYP': 'JYP',
+                'Jukurit': 'Jukurit',
                 'KalPa': 'KalPa',
                 'KooKoo': 'KooKoo',
                 'Kärpät': 'Karpat',
