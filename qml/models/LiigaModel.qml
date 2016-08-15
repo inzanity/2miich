@@ -50,7 +50,9 @@ HtmlListModel {
 
         if ((tmp = logo.match(/Logot_[0-9]+_([^_.]+)/))) {
             logo = tmp[1];
-        } else if ((tmp = logo.match(/\/([^-]+)[^\/]*$/))) {
+        } else if ((tmp = logo.match(/\d+x\d+px-([^.-]+)\.png/))) {
+            logo = tmp[1];
+        } else if ((tmp = logo.match(/\/(?:logo-)?([^-_]+)[^\/]*$/))) {
             logo = tmp[1];
         }
         logo = logo.replace(/^(.)(.*)$/, function (full, first, rest) {
