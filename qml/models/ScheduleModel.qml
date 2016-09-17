@@ -32,18 +32,18 @@ HtmlListModel {
     }
     HtmlRole {
         name: 'home'
-        query: 'normalize-space(substring-before(td[4], " - "))'
+        query: 'substring-before(normalize-space(td[4]), " - ")'
     }
     HtmlRole {
         name: 'away'
-        query: 'normalize-space(substring-after(td[4], " - "))'
+        query: 'substring-after(normalize-space(td[4]), " - ")'
     }
     HtmlRole {
         name: 'result'
-        query: 'td[6]'
+        query: 'normalize-space(td[6])'
     }
     HtmlRole {
         name: 'overtime'
-        query: 'td[7]'
+        query: 'normalize-space(td[7])'
     }
 }
