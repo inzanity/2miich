@@ -69,16 +69,15 @@ Page {
 
         section.property: 'date'
         section.delegate: BackgroundItem {
-            height: section ? sLbl.contentHeight : 0
             Label {
                 id: sLbl
-                property date dt: new Date(Date.parse(section.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3')))
+                property date dt: new Date(Date.parse(section.replace(/^([0-9]+)([0-9]{2})([0-9]{2})$/, '$2/$3/$1')))
                 text: section ? Qt.formatDate(dt, 'ddd, ') + Qt.formatDate(dt) : ''
                 width: contentWidth
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: Theme.highlightColor
             }
-            onClicked: { mainPage.date = new Date(Date.parse(section.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
+            onClicked: { mainPage.date = new Date(Date.parse(section.replace(/^([0-9]+)([0-9]{2})([0-9]{2})$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
         }
 
         model: ScheduleModel {
@@ -109,10 +108,8 @@ Page {
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingLarge
 
-                property variant gameDate: { var i; for (i = index; !listView.model.get(i).date; i--); return dateParser.parseDateTime(listView.model.get(i).date.split(/ /).pop() + ' ' + time, "d.M.yyyy hh:mm"); }
-
                 Label {
-                    text: Qt.formatTime(parent.gameDate)
+                    text: Qt.formatTime(dateParser.parseDateTime(date + ' ' + time, 'yyyyMMdd hh:mm'))
                     font.pixelSize: Theme.fontSizeExtraSmall
                     color: parent.parent.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }

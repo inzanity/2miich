@@ -24,7 +24,7 @@ HtmlListModel {
 
     HtmlRole {
         name: 'date'
-        query: 'td[2][string() != ""]'
+        query: '@data-time'
     }
     HtmlRole {
         name: 'time'
