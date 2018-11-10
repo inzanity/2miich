@@ -117,6 +117,7 @@ private:
     ScoPtr<xmlDoc, xmlFreeDoc> root;
     ScoPtr<xmlXPathContext, xmlXPathFreeContext> xp_context;
     ScoPtr<xmlXPathObject, xmlXPathFreeObject> xp_results;
+    QVector<QMap<int, QVariant> > cache;
 };
 
 #endif // HTMLLISTMODEL_H

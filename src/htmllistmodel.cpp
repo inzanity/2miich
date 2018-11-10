@@ -72,6 +72,7 @@ void HtmlListModel::parse()
         xp_results = 0;
         xp_context = 0;
         root = 0;
+        cache.resize(0);
         if (oldCount)
             endRemoveRows();
         return;
@@ -85,6 +86,7 @@ void HtmlListModel::parse()
     QByteArray qry_utf8 = query_.toUtf8();
     xp_results = xmlXPathEval((const xmlChar *)qry_utf8.data(),
                               xp_context);
+    cache.fill(QMap<int, QVariant>(), count());
 
     ready = true;
     emit readyChanged();
@@ -163,6 +165,9 @@ QVariant HtmlListModel::data(const QModelIndex &index, int role) const
             index.row() >= xmlXPathNodeSetGetLength(xp_results->nodesetval))
         return QVariant();
 
+    if (cache[index.row()].contains(role - Qt::UserRole))
+        return cache[index.row()][role - Qt::UserRole];
+
     QByteArray qry_utf8 = roles[role - Qt::UserRole]->query().toUtf8();
     xmlNodePtr node = xmlXPathNodeSetItem(xp_results->nodesetval,
                                           index.row());
@@ -177,6 +182,8 @@ QVariant HtmlListModel::data(const QModelIndex &index, int role) const
                 Q_RETURN_ARG(QVariant, rv),
                 Q_ARG(QVariant, rv));
 
+    HtmlListModel *self = const_cast<HtmlListModel *>(this);
+    self->cache[index.row()].insert(role - Qt::UserRole, rv);
     return rv;
 }
 
