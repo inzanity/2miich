@@ -40,22 +40,27 @@
 <context>
     <name>GameModel</name>
     <message>
-        <location filename="../qml/models/GameModel.qml" line="50"/>
+        <location filename="../qml/models/GameModel.qml" line="70"/>
         <source>Goalies</source>
         <translation>Maalivahdit</translation>
     </message>
     <message>
-        <location filename="../qml/models/GameModel.qml" line="52"/>
+        <location filename="../qml/models/GameModel.qml" line="72"/>
         <source>Overtime</source>
         <translation>Jatkoaika</translation>
     </message>
     <message>
-        <location filename="../qml/models/GameModel.qml" line="56"/>
+        <location filename="../qml/models/GameModel.qml" line="74"/>
+        <source>Shootout</source>
+        <translation>Voittolaukauskilpailu</translation>
+    </message>
+    <message>
+        <location filename="../qml/models/GameModel.qml" line="78"/>
         <source>%1 overtime</source>
         <translation>%1 jatkoerä</translation>
     </message>
     <message>
-        <location filename="../qml/models/GameModel.qml" line="58"/>
+        <location filename="../qml/models/GameModel.qml" line="80"/>
         <source>%1 period</source>
         <translation type="unfinished"></translation>
     </message>
@@ -87,27 +92,27 @@
 <context>
     <name>ScoresPage</name>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="205"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="206"/>
         <source>No games for the day</source>
         <translation>Ei otteluita päivälle</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="211"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="212"/>
         <source>Statistics</source>
         <translation>Tilastot</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="216"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="217"/>
         <source>Go to today</source>
         <translation>Näytä tämä päivä</translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="220"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="221"/>
         <source>Previous: </source>
         <translation>Edeltävät: </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ScoresPage.qml" line="228"/>
+        <location filename="../qml/pages/ScoresPage.qml" line="229"/>
         <source>Next: </source>
         <translation>Seuraavat: </translation>
     </message>
