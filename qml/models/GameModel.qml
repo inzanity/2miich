@@ -35,6 +35,26 @@ HtmlListModel {
 	HtmlRole {
 		name: 'event'
 		query: 'normalize-space(.)'
+
+		function process(text) {
+			var cln = text.replace(/#[0-9]+\s*/g, '');
+			var r;
+			if ((r = cln.match(/^(Maalivah(?:ti (?:ulos|sisään)|din vaihto)): ([^,]+?(?: ulos)?)(?:, (.*))?$/)))
+				return { text: r[3] || r[2], detail: r[1] + (r[3] ? ': ' + r[2] : '') };
+			if ((r = cln.match(/^(.* [0-9]+-[0-9]+)(?: (\([^)]+\)))?(.*)$/)))
+				return { type: 'goal', text: r[1] + r[3], detail: r[2] || '' };
+			if ((r = cln.match(/^(.*) (aikalisä)/)))
+				return { type: 'timeout', text: r[1], detail: r[2] };
+			if ((r = cln.match(/^(.*Rangaistuslaukaus.*)\(([^)]+)\)/)))
+				return { type: 'penaltyShot', text: r[1], detail: r[2] };
+			if ((r = cln.match(/^(.*?) ([0-9]+ min .*)$/)))
+				return { type: 'penalty', text: r[1], detail: r[2] };
+			if ((r = cln.match(/^(.*?) ([a-zåäö][a-zåäö ]+)$/)))
+				return { type: 'penalty', text: r[1], detail: r[2] };
+			if ((r = cln.match(/^(.*? \d+(?:\+\d+)*=\d+)\s*(.*?)$/)))
+				return { text: r[1], detail: r[2] };
+			return { text: cln, detail: '' };
+		}
 	}
 	HtmlRole {
 		name: 'team'

@@ -165,31 +165,12 @@ Page {
 
         delegate: BackgroundItem {
             id: bgi
-            property variant eventDetails: {
-                var cln = event.replace(/#[0-9]+\s*/g, '');
-                var r;
-                if ((r = cln.match(/^(Maalivah(?:ti (?:ulos|sisään)|din vaihto)): ([^,]+?(?: ulos)?)(?:, (.*))?$/)))
-                    return { text: r[3] || r[2], detail: r[1] + (r[3] ? ': ' + r[2] : '') };
-                if ((r = cln.match(/^(.* [0-9]+-[0-9]+)(?: (\([^)]+\)))?(.*)$/)))
-                    return { type: 'goal', text: r[1] + r[3], detail: r[2] || '' };
-                if ((r = cln.match(/^(.*) (aikalisä)/)))
-                    return { type: 'timeout', text: r[1], detail: r[2] };
-                if ((r = cln.match(/^(.*Rangaistuslaukaus.*)\(([^)]+)\)/)))
-                    return { type: 'penaltyShot', text: r[1], detail: r[2] };
-                if ((r = cln.match(/^(.*?) ([0-9]+ min .*)$/)))
-                    return { type: 'penalty', text: r[1], detail: r[2] };
-                if ((r = cln.match(/^(.*?) ([a-zåäö][a-zåäö ]+)$/)))
-                    return { type: 'penalty', text: r[1], detail: r[2] };
-                if ((r = cln.match(/^(.*? \d+(?:\+\d+)*=\d+)\s*(.*?)$/)))
-                    return { text: r[1], detail: r[2] };
-                return { text: cln, detail: '' };
-            }
 
             Image {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.paddingMedium
-                source: (bgi.eventDetails.type ? 'qrc:///images/' + bgi.eventDetails.type + '.png' : '')
-                visible: bgi.eventDetails.type !== undefined
+                source: (event.type ? 'qrc:///images/' + event.type + '.png' : '')
+                visible: event.type !== undefined
                 opacity: 0.7
             }
             Row {
@@ -214,11 +195,11 @@ Page {
                 }
                 Column {
                     Label {
-                        text: bgi.eventDetails.text
+                        text: event.text
                     }
                     Label {
                         color: Theme.secondaryColor
-                        text: bgi.eventDetails.detail
+                        text: event.detail
                         font.pixelSize: Theme.fontSizeExtraSmall
                     }
                 }
