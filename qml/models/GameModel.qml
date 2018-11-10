@@ -70,6 +70,8 @@ HtmlListModel {
                 rv.text = QT_TR_NOOP('Goalies');
             } else if (text === 'Jatkoaika') {
                 rv.text = QT_TR_NOOP('Overtime');
+            } else if (text === 'Voittomaalikilpailu') {
+                rv.text = QT_TR_NOOP('Shootout');
             } else {
                 var m = text.match(/^(\d+)\. (jatko)?erä/);
                 if (m[2]) {
