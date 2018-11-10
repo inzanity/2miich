@@ -40,6 +40,8 @@ public:
 
     Q_INVOKABLE QVariant process(QVariant result);
 
+    bool hasProcess;
+
 private:
     QString name_;
     QString query_;

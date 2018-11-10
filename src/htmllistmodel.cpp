@@ -172,9 +172,10 @@ QVariant HtmlListModel::data(const QModelIndex &index, int role) const
                 (xmlXPathContextPtr)&xp_context);
     ScoPtr<xmlChar, _xmlFreeChar> val = xmlXPathCastToString(res);
     QVariant rv = QString::fromUtf8((const char *)&val);
-    QMetaObject::invokeMethod(roles[role - Qt::UserRole], "process",
-            Q_RETURN_ARG(QVariant, rv),
-            Q_ARG(QVariant, rv));
+    if (roles[role - Qt::UserRole]->hasProcess)
+        QMetaObject::invokeMethod(roles[role - Qt::UserRole], "process",
+                Q_RETURN_ARG(QVariant, rv),
+                Q_ARG(QVariant, rv));
 
     return rv;
 }

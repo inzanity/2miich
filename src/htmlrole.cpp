@@ -19,7 +19,8 @@
 #include "htmlrole.h"
 
 HtmlRole::HtmlRole(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    hasProcess(true)
 {
 }
 
@@ -49,5 +50,6 @@ void HtmlRole::setQuery(QString query)
 
 QVariant HtmlRole::process(QVariant result)
 {
+    hasProcess = false;
     return result;
 }
