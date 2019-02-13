@@ -26,7 +26,7 @@ import '../models'
 
 Page {
     id: page
-    property string source: 'http://liiga.fi' + details.rosters
+    property string source: 'https://liiga.fi' + details.rosters
     property variant details
 
     onSourceChanged: refresh();
@@ -63,7 +63,7 @@ Page {
                 height: 0
                 Image {
                     id: bgHome
-                    source: 'image://cache/http://liiga.fi' + details['homelogo']
+                    source: 'image://cache/https://liiga.fi' + details['homelogo']
                     anchors.right: parent.left
                     anchors.rightMargin: -width / 2
                 }
@@ -82,7 +82,7 @@ Page {
             height: 0
             Image {
                 id: bgAway
-                source: 'image://cache/http://liiga.fi' + details['awaylogo']
+                source: 'image://cache/https://liiga.fi' + details['awaylogo']
                 anchors.right: parent.left
                 anchors.rightMargin: -width / 2
 		anchors.bottom: parent.bottom
@@ -104,7 +104,7 @@ Page {
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.paddingMedium
                 Image {
-                    source: 'image://cache/http://liiga.fi' + image
+                    source: 'image://cache/https://liiga.fi' + image
                     sourceSize.height: bgItem.height
                 }
                 Label {
