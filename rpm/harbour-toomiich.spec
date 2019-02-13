@@ -7,7 +7,7 @@
 
 Name:       harbour-toomiich
 Summary:    2Miich - liigaa
-Version:    0.1.11
+Version:    0.1.12
 Release:    1
 Group:      Applications/Internet
 License:    GPL
