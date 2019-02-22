@@ -32,6 +32,7 @@ public:
 	virtual QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 private:
+	QNetworkAccessManager m_manager;
 	DiskCache *m_cache;
 };
 

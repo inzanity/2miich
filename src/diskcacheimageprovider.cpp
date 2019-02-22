@@ -28,43 +28,45 @@
 #include "diskcache.h"
 
 DiskCacheImageProvider::DiskCacheImageProvider(QQuickImageProvider::Flags flags) :
-	QQuickImageProvider(QQuickImageProvider::Image, flags),
-	m_cache(new DiskCache)
+    QQuickImageProvider(QQuickImageProvider::Image, flags),
+    m_cache(new DiskCache)
 {
 }
 
 DiskCacheImageProvider::~DiskCacheImageProvider()
 {
-	delete m_cache;
+    delete m_cache;
 }
 
 QImage DiskCacheImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-	QImage rv;
-	QString cached = m_cache->getFile(id, -1);
+    QImage rv;
+    QString cached = m_cache->getFile(id, -1);
 
-	if (!cached.isNull())
-		rv = QImage(QUrl(cached).toLocalFile());
-	else {
-		QNetworkAccessManager man;
-		QNetworkRequest req;
+    if (!cached.isNull())
+        rv = QImage(QUrl(cached).toLocalFile());
+    else {
+        QNetworkRequest req;
 
-		req.setUrl(id);
+        req.setUrl(id);
 
-		QNetworkReply *rep = man.get(req);
-		QEventLoop blocker;
+        QNetworkReply *rep = m_manager.get(req);
+        QEventLoop blocker;
 
-		QObject::connect(rep, SIGNAL(finished()), &blocker, SLOT(quit()));
-		blocker.exec();
+        QObject::connect(rep, SIGNAL(finished()), &blocker, SLOT(quit()));
+        blocker.exec();
 
         if (!rep->error()) {
             QByteArray data = rep->readAll();
-		
+
             rv = QImage::fromData(data);
             if (!rv.isNull())
                 m_cache->setFileBinary(id, data);
         }
-	}
+    }
+
+    if (rv.isNull() || rv.size().isEmpty())
+        return rv;
 
     *size = rv.size();
     if (requestedSize.isValid()) {
@@ -78,5 +80,5 @@ QImage DiskCacheImageProvider::requestImage(const QString &id, QSize *size, cons
         rv = rv.scaled(scaleTo, Qt::KeepAspectRatio);
     }
 
-	return rv;
+    return rv;
 }
