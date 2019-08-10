@@ -1,9 +1,9 @@
 [submodule "3rdparty/libiphb"]
 	path = 3rdparty/libiphb
-	url = https://github.com/nemomobile/libiphb.git
+	url = https://git.merproject.org/mer-core/libiphb.git
 [submodule "3rdparty/nemo-qml-plugin-dbus"]
 	path = 3rdparty/nemo-qml-plugin-dbus
-	url = https://github.com/nemomobile/nemo-qml-plugin-dbus.git
+	url = https://git.merproject.org/mer-core/nemo-qml-plugin-dbus.git
 [submodule "3rdparty/libdsme"]
 	path = 3rdparty/libdsme
-	url = https://github.com/nemomobile/libdsme.git
+	url = https://git.merproject.org/mer-core/libdsme.git
