@@ -20,11 +20,11 @@ import QtQuick 2.0
 import harbour.toomiich.Oledify 1.0
 import harbour.toomiich.PersistentTimer 1.0
 
-import harbour.toomiich.DBusInterface 1.0
+import harbour.toomiich.DBusInterface 2.0
 
 Oledify {
     id: oledify
-    property bool present: false;
+    property bool present: tohOled.status === DBusInterface.Available;
     property bool enable: false;
     property bool _active: present && enable;
     property bool haveLock: false
@@ -39,35 +39,11 @@ Oledify {
         DBusInterface {
             id: tohOled
 
-            destination: 'com.kimmoli.toholed'
+            watchServiceStatus: true
+            service: 'com.kimmoli.toholed'
             iface: 'com.kimmoli.toholed'
             path: '/'
-            busType: DBusInterface.SystemBus
-        },
-        DBusInterface {
-            id: dbusNames
-
-            destination: 'org.freedesktop.DBus'
-            iface: 'org.freedesktop.DBus'
-            path: '/org/freedesktop/DBus'
-            signalsEnabled: true
-
-            busType: DBusInterface.SystemBus
-
-            signal rcNameOwnerChanged(string name, string prevOwner, string newOwner);
-
-            onRcNameOwnerChanged: {
-                if (name === tohOled.destination)
-                    oledify.present = !!newOwner
-            }
-
-            Component.onCompleted: {
-                dbusNames.typedCallWithReturn('GetNameOwner',
-                                              [{type: 's', value: tohOled.destination}],
-                                              function (owner) {
-                                                  oledify.present = !!owner;
-                                              });
-            }
+            bus: DBusInterface.SystemBus
         },
         PersistentTimer {
             interval: 25000

@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<DiskCache, 1>("harbour.toomiich.DiskCache", 1, 0, "DiskCache");
     qmlRegisterType<Oledify, 1>("harbour.toomiich.Oledify", 1, 0, "Oledify");
     qmlRegisterType<PersistentTimer, 1>("harbour.toomiich.PersistentTimer", 1, 0, "PersistentTimer");
-    qmlRegisterType<DeclarativeDBusInterface, 1>("harbour.toomiich.DBusInterface", 1, 0, "DBusInterface");
-    qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 1, 0, "DBusAdaptor");
+    qmlRegisterType<DeclarativeDBusInterface, 1>("harbour.toomiich.DBusInterface", 2, 0, "DBusInterface");
+    qmlRegisterType<DeclarativeDBusAdaptor, 1>("harbour.toomiich.DBusAdaptor", 2, 0, "DBusAdaptor");
     qmlRegisterType<TzDateParser, 1>("harbour.toomiich.TzDateParser", 1, 0, "TzDateParser");
     qmlRegisterType<HtmlListModel, 1>("harbour.toomiich.HtmlListModel", 1, 0, "HtmlListModel");
     qmlRegisterType<HtmlRole, 1>("harbour.toomiich.HtmlListModel", 1, 0, "HtmlRole");
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
     view->engine()->addImageProvider(QLatin1String("cache"),
-                                     new DiskCacheImageProvider(QQuickImageProvider::ForceAsynchronousImageLoading));
+                                     new DiskCacheImageProvider);
     QString qml = QString("qml/harbour-toomiich.qml");
     view->setSource(SailfishApp::pathTo(qml));
     view->show();

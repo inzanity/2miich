@@ -18,7 +18,9 @@ PKGCONFIG += libxml-2.0
 
 INCLUDEPATH += 3rdparty/libiphb/src \
     3rdparty/libdsme/include \
-    3rdparty/nemo-qml-plugin-dbus/src
+    3rdparty/nemo-qml-plugin-dbus/src/plugin \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/private
 LIBS += -lrt
 
 DEFINES += QT_VERSION_5
@@ -32,8 +34,14 @@ SOURCES += src/harbour-toomiich.cpp \
     src/htmllistmodel.cpp \
     src/htmlrole.cpp \
     3rdparty/libiphb/src/libiphb.c \
-    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.cpp \
-    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.cpp
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbusadaptor.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbusinterface.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbus.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/dbus.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/connection.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/private/propertychanges.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/logging.cpp \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/response.cpp
 
 OTHER_FILES += \
     rpm/harbour-toomiich.changes.in \
@@ -80,5 +88,13 @@ HEADERS += \
     src/htmllistmodel.h \
     src/htmlrole.h \
     3rdparty/libiphb/src/libiphb.h \
-    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusadaptor.h \
-    3rdparty/nemo-qml-plugin-dbus/src/declarativedbusinterface.h
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbusadaptor.h \
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbusinterface.h \
+    3rdparty/nemo-qml-plugin-dbus/src/plugin/declarativedbus.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/dbus.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/connection.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/response.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/global.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/private/connectiondata.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/logging.h \
+    3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/private/propertychanges.h
