@@ -48,30 +48,31 @@ QString DiskCache::getFile(const QString &what, int maxage)
     return QUrl::fromLocalFile(info.absoluteFilePath()).toString();
 }
 
-bool DiskCache::setFileBinary(const QString &what, const QByteArray &towhat)
+QString DiskCache::setFileBinary(const QString &what, const QByteArray &towhat)
 {
     QString fn = QCryptographicHash::hash(what.toUtf8(), QCryptographicHash::Md5).toHex();
     QStringList caches = QStandardPaths::standardLocations(QStandardPaths::CacheLocation);
-    bool rv;
 
     if (caches.empty())
-        return false;
+        return QString();
 
     QDir::root().mkpath(caches[0]);
-    QFile out(QDir(caches[0]).filePath(fn));
+    QString outFile = QDir(caches[0]).filePath(fn);
+    QFile out(outFile);
 
     out.open(QIODevice::WriteOnly);
 
     if (!out.isOpen())
-        return false;
+        return QString();
 
-    rv = out.write(towhat);
+    if (!out.write(towhat))
+	    outFile = QString();
     out.close();
 
-    return rv;
+    return outFile;
 }
 
 bool DiskCache::setFile(const QString &what, const QString &towhat)
 {
-    return setFileBinary(what, towhat.toUtf8());
+    return !setFileBinary(what, towhat.toUtf8()).isNull();
 }

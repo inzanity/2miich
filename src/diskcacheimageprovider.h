@@ -22,18 +22,19 @@
 #include <QQuickImageProvider>
 
 class DiskCache;
+class DiskCacheImageProviderPrivate;
 
-class DiskCacheImageProvider : public QQuickImageProvider
+class DiskCacheImageProvider : public QQuickAsyncImageProvider
 {
 public:
-	DiskCacheImageProvider(QQuickImageProvider::Flags flags = 0);
+	DiskCacheImageProvider();
 	virtual ~DiskCacheImageProvider();
 
+	virtual QQuickImageResponse *requestImageResponse(const QString &id, const QSize &requestedSize);
 	virtual QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 private:
-	QNetworkAccessManager m_manager;
-	DiskCache *m_cache;
+	DiskCacheImageProviderPrivate *m_priv;
 };
 
 #endif // DISKCACHEIMAGEPROVIDER_H

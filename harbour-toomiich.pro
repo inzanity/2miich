@@ -12,7 +12,7 @@
 # The name of your application
 TARGET = harbour-toomiich
 
-CONFIG += sailfishapp
+CONFIG += sailfishapp c++11
 QT += network dbus
 PKGCONFIG += libxml-2.0
 

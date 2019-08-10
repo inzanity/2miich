@@ -23,62 +23,198 @@
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QStandardPaths>
+#include <QThread>
+#include <QUrl>
 
 #include "diskcacheimageprovider.h"
 #include "diskcache.h"
 
-DiskCacheImageProvider::DiskCacheImageProvider(QQuickImageProvider::Flags flags) :
-    QQuickImageProvider(QQuickImageProvider::Image, flags),
-    m_cache(new DiskCache)
+class DiskCacheImageRequest;
+class Resizer;
+
+class DiskCacheImageProviderPrivate : public QObject {
+	Q_OBJECT
+public:
+	DiskCacheImageProviderPrivate();
+	~DiskCacheImageProviderPrivate();
+
+public slots:
+	void request(QString id, DiskCacheImageRequest *req, QSize requestedSize);
+	void imageReady(DiskCacheImageRequest *req, QImage result);
+
+signals:
+	void dataReady(QString file, DiskCacheImageRequest *req, const QSize &requestedSize);
+
+private:
+	DiskCache m_cache;
+	QNetworkAccessManager m_manager;
+	QThread m_resizerThread;
+};
+
+class DiskCacheImageRequest : public QQuickImageResponse {
+	Q_OBJECT
+public:
+	DiskCacheImageRequest(DiskCacheImageProviderPrivate *p, QString url);
+	~DiskCacheImageRequest() {}
+	virtual QString errorString() const;
+	virtual QQuickTextureFactory *textureFactory() const;
+	virtual void cancel();
+
+	void waitForFinished();
+	QString url() const;
+
+	QByteArray data;
+
+public slots:
+	void ready(QImage data);
+
+private:
+	DiskCacheImageProviderPrivate *prov;
+	QEventLoop blocker;
+	QImage image;
+	QString id;
+};
+
+class Resizer : public QObject
 {
+	Q_OBJECT
+public:
+	Resizer() {}
+	~Resizer() {}
+
+public slots:
+	void resize(QString file, DiskCacheImageRequest *req, QSize requestedSize);
+
+signals:
+	void resized(DiskCacheImageRequest *req, QImage result);
+};
+
+DiskCacheImageProviderPrivate::DiskCacheImageProviderPrivate()
+{
+	Resizer *resizer = new Resizer;
+	resizer->moveToThread(&m_resizerThread);
+	connect(&m_resizerThread, &QThread::finished, resizer, &QObject::deleteLater);
+	connect(this, &DiskCacheImageProviderPrivate::dataReady, resizer, &Resizer::resize);
+	connect(resizer, &Resizer::resized, this, &DiskCacheImageProviderPrivate::imageReady);
+	m_resizerThread.start();
+}
+
+DiskCacheImageProviderPrivate::~DiskCacheImageProviderPrivate()
+{
+	m_resizerThread.quit();
+	m_resizerThread.wait();
+}
+
+void DiskCacheImageProviderPrivate::imageReady(DiskCacheImageRequest *req, QImage result)
+{
+	QMetaObject::invokeMethod(req, "ready", Q_ARG(QImage, result));
+}
+
+void Resizer::resize(QString file, DiskCacheImageRequest *req, QSize requestedSize)
+{
+	QImage result(file);
+
+	if (requestedSize.isValid()) {
+		QSize scaleTo = requestedSize;
+		if (scaleTo.isEmpty()) {
+			if (scaleTo.height())
+				scaleTo.setWidth(result.width() * scaleTo.height() / result.height());
+			else
+				scaleTo.setHeight(result.height() * scaleTo.width() / result.width());
+		}
+		result = result.scaled(scaleTo, Qt::KeepAspectRatio);
+	}
+
+	emit resized(req, result);
+}
+
+DiskCacheImageRequest::DiskCacheImageRequest(DiskCacheImageProviderPrivate *p, QString url) :
+	QQuickImageResponse(),
+	prov(p),
+	id(url)
+{
+}
+
+DiskCacheImageProvider::DiskCacheImageProvider() :
+	QQuickAsyncImageProvider(),
+	m_priv(new DiskCacheImageProviderPrivate)
+{
+	qRegisterMetaType<DiskCacheImageRequest *>("DiskCacheImageRequest");
 }
 
 DiskCacheImageProvider::~DiskCacheImageProvider()
 {
-    delete m_cache;
+	delete m_priv;
+}
+
+QString DiskCacheImageRequest::url() const
+{
+	return id;
+}
+
+QQuickImageResponse *DiskCacheImageProvider::requestImageResponse(const QString &id, const QSize &requestedSize)
+{
+	DiskCacheImageRequest *rv = new DiskCacheImageRequest(m_priv, id);
+
+	QMetaObject::invokeMethod(m_priv, "request", Qt::QueuedConnection,
+				  Q_ARG(QString, id),
+				  Q_ARG(DiskCacheImageRequest *, rv),
+				  Q_ARG(QSize, requestedSize));
+
+	return rv;
+}
+
+void DiskCacheImageProviderPrivate::request(QString id, DiskCacheImageRequest *rv, QSize requestedSize)
+{
+	QString cached = m_cache.getFile(id, -1);
+
+	if (!cached.isNull()) {
+		emit dataReady(QUrl(cached).path(), rv, requestedSize);
+		return;
+	}
+
+	QNetworkRequest req;
+
+	req.setUrl(id);
+	QNetworkReply *rep = m_manager.get(req);
+
+	connect(rep, &QNetworkReply::finished, this, [=]() {
+		QByteArray data;
+		if (rep->error())
+			return;
+		data = rep->readAll();
+		emit dataReady(m_cache.setFileBinary(id, data), rv, requestedSize);
+	});
+}
+
+void DiskCacheImageRequest::waitForFinished()
+{
+	blocker.exec();
+}
+
+void DiskCacheImageRequest::ready(QImage data)
+{
+	image = data;
+	emit finished();
+}
+
+void DiskCacheImageRequest::cancel()
+{
+}
+
+QString DiskCacheImageRequest::errorString() const
+{
+	return QString();
+}
+
+QQuickTextureFactory *DiskCacheImageRequest::textureFactory() const
+{
+	return QQuickTextureFactory::textureFactoryForImage(image);
 }
 
 QImage DiskCacheImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    QImage rv;
-    QString cached = m_cache->getFile(id, -1);
-
-    if (!cached.isNull())
-        rv = QImage(QUrl(cached).toLocalFile());
-    else {
-        QNetworkRequest req;
-
-        req.setUrl(id);
-
-        QNetworkReply *rep = m_manager.get(req);
-        QEventLoop blocker;
-
-        QObject::connect(rep, SIGNAL(finished()), &blocker, SLOT(quit()));
-        blocker.exec();
-
-        if (!rep->error()) {
-            QByteArray data = rep->readAll();
-
-            rv = QImage::fromData(data);
-            if (!rv.isNull())
-                m_cache->setFileBinary(id, data);
-        }
-    }
-
-    if (rv.isNull() || rv.size().isEmpty())
-        return rv;
-
-    *size = rv.size();
-    if (requestedSize.isValid()) {
-        QSize scaleTo = requestedSize;
-        if (scaleTo.isEmpty()) {
-            if (scaleTo.height())
-                scaleTo.setWidth(rv.width() * scaleTo.height() / rv.height());
-            else
-                scaleTo.setHeight(rv.height() * scaleTo.width() / rv.width());
-        }
-        rv = rv.scaled(scaleTo, Qt::KeepAspectRatio);
-    }
-
-    return rv;
+	return QImage();
 }
+
+#include "diskcacheimageprovider.moc"
