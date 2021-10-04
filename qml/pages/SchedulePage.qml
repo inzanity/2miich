@@ -77,7 +77,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: Theme.highlightColor
             }
-            onClicked: { mainPage.date = new Date(Date.parse(section.replace(/^([0-9]+)([0-9]{2})([0-9]{2})$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
+            onClicked: { mainPage.date = sLbl.dt; pageStack.popAttached(); }
         }
 
         model: ScheduleModel {
@@ -88,7 +88,7 @@ Page {
                     for (i = 0; i < count; i++) {
                         var r = get(i);
 
-                        if (r.date && Date.parse(r.date.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3')) >= mainPage.date) {
+                        if (r.date && new Date(Date.parse(section.replace(/^([0-9]+)([0-9]{2})([0-9]{2})$/, '$2/$3/$1'))) >= mainPage.date) {
                             listView.positionViewAtIndex(i, ListView.Center);
                             break;
                         }
@@ -133,7 +133,7 @@ Page {
                 }
             }
 
-            onClicked: { var i; for (i = index; !listView.model.get(i).date; i--); mainPage.date = new Date(Date.parse(listView.model.get(i).date.replace(/^.* ([0-9]+)\.([0-9]+)\.([0-9]+)$/, '$2/$1/$3'))); pageStack.pop(mainPage); }
+            onClicked: { var i; for (i = index; !listView.model.get(i).date; i--); mainPage.date = new Date(Date.parse(listView.model.get(i).date.replace(/^([0-9]+)([0-9]{2})([0-9]{2})$/, '$2/$3/$1'))); pageStack.popAttached(); }
         }
         VerticalScrollDecorator {}
     }

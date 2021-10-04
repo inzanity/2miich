@@ -33,7 +33,7 @@ Page {
     onStatusChanged: {
         if (status === PageStatus.Active) {
             detailsIndex = -1;
-            pageStack.pushExtra(schedule, { parent: page, mainPage: page });
+            pageStack.pushAttached(schedule, { mainPage: page });
         }
     }
 
@@ -53,6 +53,7 @@ Page {
             pageStack.pop(page);
         }
     }
+
     Component {
         id: schedule
         SchedulePage {}
