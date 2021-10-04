@@ -41,7 +41,7 @@ Page {
                     pointLeader.model.xml = tmp;
                 }
             }
-            xhr.open("GET", "https://liiga.fi/");
+            xhr.open("GET", "https://old.liiga.fi/");
             xhr.send();
         }
     }

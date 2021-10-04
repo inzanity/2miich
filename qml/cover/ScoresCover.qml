@@ -98,7 +98,7 @@ CoverBackground {
             Image {
                 id: bigHomeLogo
                 anchors.right: homeScore.left
-                source: isActive && homelogo ? 'image://cache/https://liiga.fi' + homelogo : ''
+                source: isActive && homelogo ? 'image://cache/https://old.liiga.fi' + homelogo : ''
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
                 y: isActive ? (timeLabel.y + timeLabel.height - height) / 2 : 0
@@ -135,7 +135,7 @@ CoverBackground {
             Image {
                 id: bigAwayLogo
                 anchors.left: awayScore.right
-                source: isActive && awaylogo ? 'image://cache/https://liiga.fi' + awaylogo : ''
+                source: isActive && awaylogo ? 'image://cache/https://old.liiga.fi' + awaylogo : ''
                 height: children[0].height * (isActive ? 2 : 1)
                 width: children[0].width * (isActive ? 2 : 1)
                 y: isActive ? (timeLabel.y + timeLabel.height - height) / 2 : 0

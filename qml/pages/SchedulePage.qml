@@ -32,7 +32,7 @@ Page {
 
     onStatusChanged: {
         if (status === PageStatus.Active) {
-            var src = "https://liiga.fi/ottelut/";
+            var src = "https://old.liiga.fi/ottelut/";
             var cached = xmlCache.getFile(src);
             var uri = src;
 

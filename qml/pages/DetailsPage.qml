@@ -26,7 +26,7 @@ import '../models'
 
 Page {
     id: page
-    property string source: 'https://liiga.fi' + details.report + 'ajax'
+    property string source: 'https://old.liiga.fi' + details.report + 'ajax'
     property variant details
 
     onSourceChanged: refresh();
@@ -60,7 +60,7 @@ Page {
 
     Image {
         id: bgHome
-        source: 'image://cache/https://liiga.fi' + details.homelogo
+        source: 'image://cache/https://old.liiga.fi' + details.homelogo
         anchors.right: parent.left
         anchors.rightMargin: -parent.width / 2
         anchors.verticalCenter: parent.verticalCenter
@@ -74,7 +74,7 @@ Page {
 
     Image {
         id: bgAway
-        source: 'image://cache/https://liiga.fi' + details.awaylogo
+        source: 'image://cache/https://old.liiga.fi' + details.awaylogo
         anchors.left: parent.right
         anchors.leftMargin: -parent.width / 2
         anchors.verticalCenter: parent.verticalCenter
@@ -106,7 +106,7 @@ Page {
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Image {
-                    source: 'image://cache/https://liiga.fi' + details.homelogo
+                    source: 'image://cache/https://old.liiga.fi' + details.homelogo
                 }
 
                 Column {
@@ -140,7 +140,7 @@ Page {
                 }
 
                 Image {
-                    source: 'image://cache/https://liiga.fi' + details.awaylogo
+                    source: 'image://cache/https://old.liiga.fi' + details.awaylogo
                 }
             }
         }
@@ -221,7 +221,7 @@ Page {
                 model: shotsModel
 
                 delegate: Image {
-                    source: 'image://cache/https://liiga.fi' + details[(cssclass.indexOf('home') != -1 ? 'homelogo' : 'awaylogo')]
+                    source: 'image://cache/https://old.liiga.fi' + details[(cssclass.indexOf('home') != -1 ? 'homelogo' : 'awaylogo')]
                     width: rink.width * 20 / 973
                     height: width
                     opacity: cssclass.indexOf('goal') !== -1 ? 1.0 : 0.5
