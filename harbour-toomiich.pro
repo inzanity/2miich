@@ -13,12 +13,13 @@
 TARGET = harbour-toomiich
 
 CONFIG += sailfishapp c++11
-QT += network dbus
+QT += network dbus quick
 PKGCONFIG += libxml-2.0
 
 INCLUDEPATH += 3rdparty/libiphb/src \
     3rdparty/libdsme/include \
     3rdparty/nemo-qml-plugin-dbus/src/plugin \
+    3rdparty/nemo-qml-plugin-dbus/src \
     3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus \
     3rdparty/nemo-qml-plugin-dbus/src/nemo-dbus/private
 LIBS += -lrt
